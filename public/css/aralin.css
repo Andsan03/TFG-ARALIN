@@ -1,0 +1,150 @@
+/* ===========================
+   ARALIN — Estilos Landing
+   Autor: Andrew Sanchez Abello
+   =========================== */
+
+/* HERO */
+.hero {
+    background: linear-gradient(135deg, #eef3ff, #93b0f8);
+    padding: 80px 0;
+}
+
+.hero img {
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    width: 100%;
+}
+
+/* TARJETAS DE SERVICIOS */
+.servicio-card {
+    background: #f8faff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 28px 24px;
+    height: 100%;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.servicio-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.servicio-card .icono {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+}
+
+/* LISTA CHECK */
+.lista-check {
+    list-style: none;
+    padding: 0;
+    margin-top: 16px;
+}
+
+.lista-check li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+/* PASOS */
+.paso {
+    text-align: center;
+    padding: 20px;
+}
+
+.paso .numero {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    font-weight: 800;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+}
+
+/* CONTACTO */
+.contacto-card {
+    border-radius: 12px;
+    padding: 32px;
+}
+
+/* FOOTER */
+.mi-footer {
+    padding: 24px 0;
+    font-size: 0.88rem;
+}
+
+/* IMÁGENES REDONDEADAS */
+.img-seccion {
+    border-radius: 16px;
+    width: 100%;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .hero { padding: 50px 0; }
+    .hero h1 { font-size: 1.8rem; }
+}
+
+
+/* ===========================
+   LOGIN
+   =========================== */
+
+.login-page {
+    min-height: 80vh;
+    background: linear-gradient(135deg, #eef3ff, #93b0f8);
+    display: flex;
+    align-items: center;
+}
+
+.login-logo {
+    width: 64px;
+    height: 64px;
+    background: #1a56db;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    font-size: 1.6rem;
+    color: #fff;
+}
+
+.login-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 8px 32px rgba(26, 86, 219, 0.12);
+}
+
+.login-card .input-group-text {
+    border-right: 0;
+}
+
+.login-card .form-control {
+    border-left: 0;
+}
+
+.login-card .form-control:focus {
+    border-color: #dee2e6;
+    box-shadow: none;
+}
+
+.login-card .input-group:focus-within {
+    border-radius: 6px;
+    box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.15);
+}
