@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('content')
 
 <div class="login-page">
-    <div class="container p-5">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-5 col-lg-4">
 

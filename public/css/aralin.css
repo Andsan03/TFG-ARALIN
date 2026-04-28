@@ -101,11 +101,11 @@
 
 
 /* ===========================
-   LOGIN
+   LOGIN Y REGISTER
    =========================== */
 
 .login-page {
-    min-height: 80vh;
+    min-height: 100vh;
     background: linear-gradient(135deg, #eef3ff, #93b0f8);
     display: flex;
     align-items: center;

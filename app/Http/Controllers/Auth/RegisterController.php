@@ -26,11 +26,27 @@ class RegisterController extends Controller
     use RegistersUsers;
 
     /**
-     * Where to redirect users after registration.
+     * Redirigir usuario después del registro según su rol
      *
-     * @var string
+     * @return string
      */
-    protected $redirectTo = '/dashboard';
+    protected function redirectTo()
+    {
+        $user = Auth::user();
+        
+        if ($user->role === 'teacher') {
+            // Si es profesor, redirigir a crear su primera clase
+            return route('teacher.classes.create');
+        } elseif ($user->role === 'student') {
+            // Si es alumno, redirigir a su dashboard
+            return route('student.dashboard');
+        } elseif ($user->role === 'admin') {
+            // Si es admin, redirigir a su dashboard
+            return route('admin.dashboard');
+        }
+        
+        return route('dashboard');
+    }
 
     /**
      * Create a new controller instance.
@@ -74,23 +90,4 @@ class RegisterController extends Controller
         ]);
     }
 
-    /**
-     * Redirigir según el rol después del registro
-     *
-     * @return string
-     */
-    protected function redirectTo()
-    {
-        $user = Auth::user();
-        
-        if ($user->role === 'student') {
-            return route('student.dashboard');
-        } elseif ($user->role === 'teacher') {
-            return route('teacher.dashboard');
-        } elseif ($user->role === 'admin') {
-            return route('admin.dashboard');
-        }
-        
-        return '/dashboard';
-    }
 }

@@ -1,132 +1,182 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
 
-                <div class="card-body">
+<div class="login-page">
+    <div class="container p-5">
+        <div class="row justify-content-center">
+            <div class="col-md-5 col-lg-4">
+
+                {{-- Cabecera --}}
+                <div class="text-center mb-4">
+                    <div class="login-logo mb-3">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h2 class="fw-bold">Crear cuenta en <span class="text-primary">aralin</span></h2>
+                    <p class="text-muted">Regístrate para empezar</p>
+                </div>
+
+                {{-- Tarjeta --}}
+                <div class="login-card">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
+                        {{-- Nombre --}}
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Nombre</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white">
+                                    <i class="fas fa-user text-primary"></i>
+                                </span>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    value="{{ old('name') }}"
+                                    class="form-control @error('name') is-invalid @enderror"
+                                    placeholder="Tu nombre"
+                                    required
+                                >
                                 @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
+                        {{-- Email --}}
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Correo electrónico</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white">
+                                    <i class="fas fa-envelope text-primary"></i>
+                                </span>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value="{{ old('email') }}"
+                                    class="form-control @error('email') is-invalid @enderror"
+                                    placeholder="nombre@ejemplo.com"
+                                    required
+                                >
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
+                        {{-- Password --}}
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Contraseña</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white">
+                                    <i class="fas fa-lock text-primary"></i>
+                                </span>
+                                <input
+                                    type="password"
+                                    name="password"
+                                    class="form-control @error('password') is-invalid @enderror"
+                                    placeholder="••••••••"
+                                    required
+                                >
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                        {{-- Confirm Password --}}
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Confirmar contraseña</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white">
+                                    <i class="fas fa-lock text-primary"></i>
+                                </span>
+                                <input
+                                    type="password"
+                                    name="password_confirmation"
+                                    class="form-control"
+                                    placeholder="••••••••"
+                                    required
+                                >
                             </div>
                         </div>
 
-                        <!-- RF-1: Selección de rol obligatoria -->
-                        <div class="row mb-3">
-                            <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Tipo de Cuenta') }}</label>
-
-                            <div class="col-md-6">
-                                <select id="role" class="form-select @error('role') is-invalid @enderror" name="role" required>
+                        {{-- Rol --}}
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Tipo de cuenta</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white">
+                                    <i class="fas fa-user-tag text-primary"></i>
+                                </span>
+                                <select
+                                    id="role"
+                                    name="role"
+                                    class="form-select @error('role') is-invalid @enderror"
+                                    required
+                                >
                                     <option value="">Selecciona tu rol</option>
                                     <option value="student" {{ old('role') == 'student' ? 'selected' : '' }}>Alumno</option>
                                     <option value="teacher" {{ old('role') == 'teacher' ? 'selected' : '' }}>Profesor</option>
                                 </select>
-
                                 @error('role')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
 
-                        <!-- Campo bio opcional para profesores -->
-                        <div class="row mb-3" id="bio-field" style="display: none;">
-                            <label for="bio" class="col-md-4 col-form-label text-md-end">{{ __('Biografía (Opcional)') }}</label>
+                        {{-- Bio --}}
+                        <div class="mb-3" id="bio-field" style="display: none;">
+                            <label class="form-label fw-semibold">Biografía (opcional)</label>
+                            <textarea
+                                id="bio"
+                                name="bio"
+                                rows="3"
+                                class="form-control @error('bio') is-invalid @enderror"
+                                placeholder="Cuéntanos sobre tu experiencia como profesor..."
+                            >{{ old('bio') }}</textarea>
 
-                            <div class="col-md-6">
-                                <textarea id="bio" class="form-control @error('bio') is-invalid @enderror" name="bio" rows="3" placeholder="Cuéntanos sobre tu experiencia como profesor...">{{ old('bio') }}</textarea>
-
-                                @error('bio')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                            @error('bio')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
+                        {{-- Botón --}}
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg fw-bold">
+                                <i class="fas fa-user-plus me-2"></i>Registrarse
+                            </button>
                         </div>
+
                     </form>
                 </div>
+
+                {{-- Link login --}}
+                <p class="text-center text-muted mt-4 small">
+                    ¿Ya tienes cuenta?
+                    <a href="{{ route('login') }}" class="text-primary fw-semibold text-decoration-none">
+                        Inicia sesión
+                    </a>
+                </p>
+
             </div>
         </div>
     </div>
 </div>
 
+{{-- Script para mostrar bio --}}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const roleSelect = document.getElementById('role');
     const bioField = document.getElementById('bio-field');
-    
-    roleSelect.addEventListener('change', function() {
-        if (this.value === 'teacher') {
-            bioField.style.display = 'block';
-        } else {
-            bioField.style.display = 'none';
-        }
-    });
+
+    function toggleBio() {
+        bioField.style.display = roleSelect.value === 'teacher' ? 'block' : 'none';
+    }
+
+    roleSelect.addEventListener('change', toggleBio);
+
+    // Mantener estado al recargar con old()
+    toggleBio();
 });
 </script>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 @endsection

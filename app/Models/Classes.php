@@ -4,13 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 
 class Classes extends Model
 {
     use HasFactory;
 
-    #[Fillable(['title', 'description', 'category', 'modality', 'price_per_hour', 'level', 'is_active'])]
+    protected $fillable = [
+        'title', 
+        'description', 
+        'category', 
+        'modality', 
+        'price_per_hour', 
+        'level', 
+        'is_active', 
+        'teacher_id'
+    ];
 
     protected function casts(): array
     {
@@ -28,12 +36,12 @@ class Classes extends Model
 
     public function bookings()
     {
-        return $this->hasMany(Booking::class);
+        return $this->hasMany(Booking::class, 'class_id');
     }
 
     public function reviews()
     {
-        return $this->hasMany(Review::class);
+        return $this->hasManyThrough(Review::class, Booking::class, 'class_id', 'booking_id');
     }
 
     // Scopes

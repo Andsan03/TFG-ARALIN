@@ -89,7 +89,7 @@ class TeacherController extends Controller
             'category' => 'required|string|max:100',
             'modality' => 'required|in:online,presential,mixed',
             'price_per_hour' => 'required|numeric|min:0|max:999.99',
-            'level' => 'required|in:primaria,eso,bachillerato,universidad,otros',
+            'level' => 'required|in:principiante,intermedio,avanzado,experto,todos',
         ]);
 
         Classes::create([
@@ -136,7 +136,7 @@ class TeacherController extends Controller
             'category' => 'required|string|max:100',
             'modality' => 'required|in:online,presential,mixed',
             'price_per_hour' => 'required|numeric|min:0|max:999.99',
-            'level' => 'required|in:primaria,eso,bachillerato,universidad,otros',
+            'level' => 'required|in:principiante,intermedio,avanzado,experto,todos',
         ]);
 
         $class->update($request->only([
