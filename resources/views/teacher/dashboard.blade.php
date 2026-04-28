@@ -1,52 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid py-4">
-    <div class="row">
-        <!-- Sidebar -->
-        <div class="col-md-3">
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
-                    <div class="mb-3">
-                        @if(auth()->user()->profile_photo)
-                            <img src="{{ asset('storage/' . auth()->user()->profile_photo) }}" 
-                                 class="rounded-circle" width="80" height="80" alt="Profile">
-                        @else
-                            <div class="rounded-circle bg-primary d-inline-flex align-items-center justify-content-center" 
-                                 style="width: 80px; height: 80px;">
-                                <i class="fas fa-user fa-2x text-white"></i>
-                            </div>
-                        @endif
-                    </div>
-                    <h5 class="card-title">{{ auth()->user()->name }}</h5>
-                    <span class="badge bg-primary">Profesor</span>
-                    <p class="text-muted small mt-2">{{ auth()->user()->bio ?? 'Sin biografía' }}</p>
-                </div>
-                <div class="list-group list-group-flush">
-                    <a href="{{ route('teacher.dashboard') }}" class="list-group-item list-group-item-action active">
-                        <i class="fas fa-tachometer-alt me-2"></i> Dashboard
-                    </a>
-                    <a href="{{ route('teacher.classes') }}" class="list-group-item list-group-item-action">
-                        <i class="fas fa-book me-2"></i> Mis Clases
-                    </a>
-                    <a href="{{ route('teacher.classes.create') }}" class="list-group-item list-group-item-action">
-                        <i class="fas fa-plus me-2"></i> Nueva Clase
-                    </a>
-                    <a href="{{ route('teacher.bookings') }}" class="list-group-item list-group-item-action">
-                        <i class="fas fa-calendar me-2"></i> Reservas
-                    </a>
-                    <a href="{{ route('teacher.reviews') }}" class="list-group-item list-group-item-action">
-                        <i class="fas fa-star me-2"></i> Reseñas
-                    </a>
-                    <a href="{{ route('profile.show') }}" class="list-group-item list-group-item-action">
-                        <i class="fas fa-user me-2"></i> Mi Perfil
-                    </a>
-                </div>
-            </div>
+<div class="container py-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="mb-1">Dashboard del Profesor</h3>
+            <p class="text-muted mb-0">Bienvenido de nuevo, {{ auth()->user()->name }}</p>
         </div>
-
-        <!-- Main Content -->
-        <div class="col-md-9">
+        <div>
+            <a href="{{ route('teacher.classes.create') }}" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>Nueva Clase
+            </a>
+        </div>
+    </div>
             <!-- Stats Cards -->
             <div class="row mb-4">
                 <div class="col-md-3">

@@ -20,7 +20,7 @@
 </head>
 <body class="bg-light">
     <div id="app">
-        <main class="py-0">
+        <main>
             @yield('content')
         </main>
     </div>

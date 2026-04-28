@@ -25,34 +25,51 @@ class StudentController extends Controller
     {
         $student = Auth::user();
         
-        // Estadísticas del alumno
-        $totalBookings = Booking::where('student_id', $student->id)->count();
-        $pendingBookings = Booking::where('student_id', $student->id)
-            ->where('status', 'pendiente')->count();
-        $acceptedBookings = Booking::where('student_id', $student->id)
-            ->where('status', 'aceptada')->count();
-        $completedBookings = Booking::where('student_id', $student->id)
-            ->where('status', 'completada')->count();
-        
-        // Reservas y clases recientes
-        $recentBookings = Booking::where('student_id', $student->id)
+        // PRÓXIMA CLASE - La más cercana en fecha futura
+        $nextClass = Booking::where('student_id', $student->id)
+            ->where('status', 'aceptada')
+            ->whereNotNull('scheduled_at')
+            ->where('scheduled_at', '>', now())
             ->with('class.teacher')
-            ->orderBy('created_at', 'desc')
+            ->orderBy('scheduled_at', 'asc')
+            ->first();
+        
+        // VALORACIONES PENDIENTES - Reservas completadas sin review
+        $pendingReviews = Booking::where('student_id', $student->id)
+            ->where('status', 'completada')
+            ->whereDoesntHave('review')
+            ->with('class.teacher')
+            ->orderBy('updated_at', 'desc')
             ->take(5)
             ->get();
-            
-        $favoriteTeachers = Favorite::where('student_id', $student->id)
-            ->with('teacher')
+        
+        // NOTIFICACIONES - Últimos cambios en reservas
+        $notifications = Booking::where('student_id', $student->id)
+            ->whereIn('status', ['aceptada', 'rechazada', 'completada'])
+            ->with('class.teacher')
+            ->orderBy('updated_at', 'desc')
             ->take(5)
-            ->get();
+            ->get()
+            ->map(function($booking) {
+                $message = '';
+                if ($booking->status === 'aceptada') {
+                    $message = "Tu clase de {$booking->class->title} fue aceptada por {$booking->class->teacher->name}";
+                } elseif ($booking->status === 'rechazada') {
+                    $message = "Tu clase de {$booking->class->title} fue rechazada";
+                } elseif ($booking->status === 'completada') {
+                    $message = "Tu clase de {$booking->class->title} fue completada";
+                }
+                return [
+                    'message' => $message,
+                    'date' => $booking->updated_at,
+                    'type' => $booking->status
+                ];
+            });
 
         return view('student.dashboard', compact(
-            'totalBookings', 
-            'pendingBookings', 
-            'acceptedBookings', 
-            'completedBookings',
-            'recentBookings',
-            'favoriteTeachers'
+            'nextClass',
+            'pendingReviews',
+            'notifications'
         ));
     }
 

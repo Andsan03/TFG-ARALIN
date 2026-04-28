@@ -41,15 +41,15 @@
                         @auth
                             @if(Auth::user()->role === 'student')
                                 <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('student.dashboard') ? 'active' : '' }}"
-                                       href="{{ route('student.dashboard') }}">
-                                        <i class="fas fa-tachometer-alt me-1"></i>Dashboard
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link {{ request()->routeIs('student.search') ? 'active' : '' }}"
                                        href="{{ route('student.search') }}">
                                         <i class="fas fa-search me-1"></i>Buscar Clases
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ request()->routeIs('student.dashboard') ? 'active' : '' }}"
+                                       href="{{ route('student.dashboard') }}">
+                                        <i class="fas fa-tachometer-alt me-1"></i>Dashboard
                                     </a>
                                 </li>
                                 <li class="nav-item">

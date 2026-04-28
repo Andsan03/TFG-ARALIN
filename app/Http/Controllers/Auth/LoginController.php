@@ -43,7 +43,7 @@ class LoginController extends Controller
         
         // Redirigir según el rol del usuario
         if ($user->role === 'student') {
-            return route('student.dashboard');
+            return route('student.search');
         } elseif ($user->role === 'teacher') {
             return route('teacher.dashboard');
         } elseif ($user->role === 'admin') {
