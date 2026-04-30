@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', [StudentController::class, 'dashboard'])->name('dashboard');
         Route::get('/search', [StudentController::class, 'searchClasses'])->name('search');
         Route::get('/class/{class}', [StudentController::class, 'showClass'])->name('class.show');
+        Route::get('/book/{class}/create', [StudentController::class, 'createBooking'])->name('book.create');
         Route::post('/book/{class}', [StudentController::class, 'bookClass'])->name('book');
         Route::get('/bookings', [StudentController::class, 'bookings'])->name('bookings');
         Route::delete('/bookings/{booking}', [StudentController::class, 'cancelBooking'])->name('bookings.cancel');

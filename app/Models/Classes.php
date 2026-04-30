@@ -17,7 +17,8 @@ class Classes extends Model
         'price_per_hour', 
         'level', 
         'is_active', 
-        'teacher_id'
+        'teacher_id',
+        'location'
     ];
 
     protected function casts(): array

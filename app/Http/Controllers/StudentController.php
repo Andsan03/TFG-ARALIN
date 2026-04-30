@@ -9,6 +9,7 @@ use App\Models\Review;
 use App\Models\Favorite;
 use App\Models\SearchHistory;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class StudentController extends Controller
 {
@@ -145,9 +146,10 @@ class StudentController extends Controller
             }
         ]);
         
-        // Verificar si el alumno ya tiene una reserva para esta clase
+        // Verificar si el alumno ya tiene una reserva ACTIVA para esta clase
         $hasBooking = Booking::where('student_id', Auth::id())
             ->where('class_id', $class->id)
+            ->whereIn('status', ['pendiente', 'aceptada'])
             ->exists();
             
         // Verificar si el profesor está en favoritos
@@ -167,31 +169,65 @@ class StudentController extends Controller
     }
 
     /**
+     * Mostrar formulario de reserva
+     */
+    public function createBooking(Classes $class)
+    {
+        // Verificar si el alumno ya tiene una reserva para esta clase
+        $hasBooking = Booking::where('student_id', Auth::id())
+            ->where('class_id', $class->id)
+            ->exists();
+            
+        if ($hasBooking) {
+            return redirect()->route('student.class.show', $class)
+                ->with('error', 'Ya tienes una reserva activa para esta clase.');
+        }
+        
+        // Cargar relaciones
+        $class->load('teacher');
+        
+        return view('student.book-create', compact('class'));
+    }
+
+    /**
      * Crear reserva de clase (RF-6)
      */
     public function bookClass(Request $request, Classes $class)
     {
+        // Logging para diagnóstico
+        \Log::info('Intento de reserva - Usuario: ' . Auth::id() . ' - Clase: ' . $class->id . ' - Título: ' . $class->title);
+        
         // Verificar si el alumno ya tiene una reserva activa para esta clase
+        // Solo se consideran activas las reservas pendientes o aceptadas
         $existingBooking = Booking::where('student_id', Auth::id())
             ->where('class_id', $class->id)
             ->whereIn('status', ['pendiente', 'aceptada'])
             ->first();
             
+        // Logging del resultado de la búsqueda
         if ($existingBooking) {
+            \Log::warning('Reserva activa encontrada - ID: ' . $existingBooking->id . ' - Estado: ' . $existingBooking->status);
             return redirect()->back()
                 ->with('error', 'Ya tienes una reserva activa para esta clase.');
+        } else {
+            \Log::info('No se encontraron reservas activas - Permitiendo nueva reserva');
         }
         
         $request->validate([
             'scheduled_at' => 'required|date|after:now',
             'message' => 'nullable|string|max:500',
+            'booking_modality' => 'required|in:online,presential',
         ]);
+        
+        // Usar la modalidad seleccionada por el usuario
+        $bookingModality = $request->input('booking_modality');
         
         Booking::create([
             'class_id' => $class->id,
             'student_id' => Auth::id(),
             'scheduled_at' => $request->input('scheduled_at'),
             'status' => 'pendiente',
+            'booking_modality' => $bookingModality,
         ]);
         
         return redirect()->route('student.bookings')
@@ -286,11 +322,12 @@ class StudentController extends Controller
     public function favorites()
     {
         $student = Auth::user();
-        $favorites = Favorite::where('student_id', $student->id)
+        $favoriteTeachers = Favorite::where('student_id', $student->id)
             ->with('teacher.classes', 'teacher.reviewsReceived')
-            ->paginate(12);
+            ->get()
+            ->pluck('teacher');
 
-        return view('student.favorites', compact('favorites'));
+        return view('student.favorites', ['favoriteTeachers' => $favoriteTeachers]);
     }
 
     /**

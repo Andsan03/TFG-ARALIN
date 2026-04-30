@@ -83,14 +83,22 @@ class TeacherController extends Controller
      */
     public function storeClass(Request $request)
     {
-        $request->validate([
+        // Validaciones base
+        $validationRules = [
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:2000',
             'category' => 'required|string|max:100',
-            'modality' => 'required|in:online,presential,mixed',
+            'modality' => 'required|in:online,presential,mixta',
             'price_per_hour' => 'required|numeric|min:0|max:999.99',
             'level' => 'required|in:principiante,intermedio,avanzado,experto,todos',
-        ]);
+        ];
+        
+        // Si es presencial o mixta, requerir ubicación
+        if ($request->modality === 'presential' || $request->modality === 'mixta') {
+            $validationRules['location'] = 'required|string|max:255';
+        }
+        
+        $request->validate($validationRules);
 
         Classes::create([
             'teacher_id' => Auth::id(),
@@ -100,6 +108,7 @@ class TeacherController extends Controller
             'modality' => $request->modality,
             'price_per_hour' => $request->price_per_hour,
             'level' => $request->level,
+            'location' => $request->location,
             'is_active' => true,
         ]);
 

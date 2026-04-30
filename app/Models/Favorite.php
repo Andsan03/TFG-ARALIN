@@ -4,13 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 
 class Favorite extends Model
 {
     use HasFactory;
 
-    #[Fillable(['student_id', 'teacher_id'])]
+    protected $fillable = ['student_id', 'teacher_id'];
 
     // Relaciones
     public function student()

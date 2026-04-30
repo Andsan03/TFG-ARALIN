@@ -124,16 +124,29 @@
                                 <label for="modality" class="form-label fw-semibold">
                                     <i class="fas fa-laptop me-1"></i>Modalidad
                                 </label>
-                                <select id="modality" name="modality" class="form-select" required>
+                                <select id="modality" name="modality" class="form-select" required onchange="toggleLocationField()">
                                     <option value="">Selecciona modalidad</option>
                                     <option value="online" {{ old('modality') == 'online' ? 'selected' : '' }}>Online</option>
                                     <option value="presential" {{ old('modality') == 'presential' ? 'selected' : '' }}>Presencial</option>
-                                    <option value="mixed" {{ old('modality') == 'mixed' ? 'selected' : '' }}>Mixta</option>
+                                    <option value="mixta" {{ old('modality') == 'mixta' ? 'selected' : '' }}>Mixta</option>
                                 </select>
                                 @error('modality')
                                     <div class="text-danger small mt-1">{{ $message }}</div>
                                 @enderror
                             </div>
+                        </div>
+
+                        <!-- Ubicación (solo para presencial y mixta) -->
+                        <div class="mb-4" id="locationField" style="display: none;">
+                            <label for="location" class="form-label fw-semibold">
+                                <i class="fas fa-map-marker-alt me-1"></i>Ubicación
+                            </label>
+                            <input type="text" id="location" name="location" class="form-control" 
+                                   value="{{ old('location') }}" placeholder="Ej: Calle Gran Vía 123, Madrid">
+                            <small class="form-text text-muted">Indica la dirección donde se impartirá la clase presencial</small>
+                            @error('location')
+                                <div class="text-danger small mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <!-- Botones de Acción -->
@@ -167,4 +180,24 @@
         </div>
     </div>
 </div>
+
+<script>
+    function toggleLocationField() {
+        const modality = document.getElementById('modality').value;
+        const locationField = document.getElementById('locationField');
+        
+        if (modality === 'presential' || modality === 'mixta') {
+            locationField.style.display = 'block';
+            document.getElementById('location').setAttribute('required', 'required');
+        } else {
+            locationField.style.display = 'none';
+            document.getElementById('location').removeAttribute('required');
+        }
+    }
+
+    // Ejecutar la función al cargar la página para mantener el estado correcto
+    document.addEventListener('DOMContentLoaded', function() {
+        toggleLocationField();
+    });
+</script>
 @endsection

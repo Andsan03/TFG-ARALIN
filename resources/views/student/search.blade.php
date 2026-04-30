@@ -150,12 +150,9 @@
                                 <a href="{{ route('student.class.show', $class) }}" class="btn btn-primary">
                                     <i class="fas fa-eye me-2"></i>Ver Detalles
                                 </a>
-                                <form method="POST" action="{{ route('student.book', $class) }}" class="d-inline">
-                                    @csrf
-                                    <button type="submit" class="btn btn-outline-primary">
-                                        <i class="fas fa-calendar-plus me-2"></i>Reservar Clase
-                                    </button>
-                                </form>
+                                <a href="{{ route('student.book.create', $class) }}" class="btn btn-outline-primary">
+                                    <i class="fas fa-calendar-plus me-2"></i>Reservar Clase
+                                </a>
                             </div>
                         </div>
                     </div>

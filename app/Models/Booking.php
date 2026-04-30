@@ -10,7 +10,7 @@ class Booking extends Model
 {
     use HasFactory;
 
-    #[Fillable(['class_id', 'student_id', 'assessment_id', 'status', 'scheduled_at', 'meeting_url'])]
+    protected $fillable = ['class_id', 'student_id', 'assessment_id', 'status', 'scheduled_at', 'meeting_url', 'booking_modality'];
 
     protected function casts(): array
     {

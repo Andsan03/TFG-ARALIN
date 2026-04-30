@@ -10,7 +10,7 @@ class Review extends Model
 {
     use HasFactory;
 
-    #[Fillable(['booking_id', 'student_id', 'teacher_id', 'rating', 'comment'])]
+    protected $fillable = ['booking_id', 'student_id', 'teacher_id', 'rating', 'comment'];
 
     // Relaciones
     public function booking()
