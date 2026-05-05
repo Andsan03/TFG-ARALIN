@@ -48,11 +48,11 @@
                                             <h6 class="card-title mb-2">{{ $teacher->name }}</h6>
                                             
                                             <!-- Rating promedio -->
-                                            @if($teacher->reviews->count() > 0)
+                                            @if($teacher->reviewsReceived->count() > 0)
                                                 <div class="mb-2">
                                                     <div class="text-warning">
                                                         @for($i = 1; $i <= 5; $i++)
-                                                            @if($i <= round($teacher->reviews->avg('rating')))
+                                                            @if($i <= round($teacher->reviewsReceived->avg('rating')))
                                                                 <i class="fas fa-star"></i>
                                                             @else
                                                                 <i class="far fa-star"></i>
@@ -60,7 +60,7 @@
                                                         @endfor
                                                     </div>
                                                     <small class="text-muted">
-                                                        ({{ $teacher->reviews->count() }} {{ $teacher->reviews->count() == 1 ? 'valoración' : 'valoraciones' }})
+                                                        ({{ $teacher->reviewsReceived->count() }} {{ $teacher->reviewsReceived->count() == 1 ? 'valoración' : 'valoraciones' }})
                                                     </small>
                                                 </div>
                                             @endif

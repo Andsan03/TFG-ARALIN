@@ -70,8 +70,12 @@ Route::middleware(['auth'])->group(function () {
     // Rutas de administrador
     Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-        Route::resource('/users', AdminController::class)->names('users');
-        Route::post('/users/{user}/toggle-status', [AdminController::class, 'toggleStatus'])->name('users.toggle-status');
-        Route::delete('/classes/{class}', [AdminController::class, 'destroyClass'])->name('classes.destroy');
+        Route::get('/users', [AdminController::class, 'users'])->name('users');
+        Route::post('/users/{user}/block', [AdminController::class, 'blockUser'])->name('users.block');
+        Route::post('/users/{user}/unblock', [AdminController::class, 'unblockUser'])->name('users.unblock');
+        Route::get('/classes', [AdminController::class, 'classes'])->name('classes');
+        Route::delete('/classes/{class}', [AdminController::class, 'deleteClass'])->name('classes.delete');
+        Route::get('/reviews', [AdminController::class, 'reviews'])->name('reviews');
+        Route::delete('/reviews/{review}', [AdminController::class, 'deleteReview'])->name('reviews.delete');
     });
 });

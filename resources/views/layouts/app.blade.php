@@ -100,7 +100,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link {{ request()->routeIs('admin.users*') ? 'active' : '' }}"
-                                       href="{{ route('admin.users.index') }}">
+                                       href="{{ route('admin.users') }}">
                                         <i class="fas fa-users me-1"></i>Usuarios
                                     </a>
                                 </li>
