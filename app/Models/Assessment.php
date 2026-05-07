@@ -4,13 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 
 class Assessment extends Model
 {
     use HasFactory;
 
-    #[Fillable(['student_id', 'subject', 'detected_level', 'answers', 'ai_recommendation'])]
+    protected $fillable = ['student_id', 'subject', 'detected_level', 'answers', 'ai_recommendation'];
 
     protected function casts(): array
     {
