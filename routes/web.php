@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\AssessmentController;
 
 
 // Rutas principales
@@ -77,5 +78,12 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/classes/{class}', [AdminController::class, 'deleteClass'])->name('classes.delete');
         Route::get('/reviews', [AdminController::class, 'reviews'])->name('reviews');
         Route::delete('/reviews/{review}', [AdminController::class, 'deleteReview'])->name('reviews.delete');
+    });
+
+    // Rutas de evaluación
+    Route::middleware(['role:student'])->prefix('assessment')->name('assessment.')->group(function () {
+        Route::get('/create/{category?}', [AssessmentController::class, 'create'])->name('create');
+        Route::post('/', [AssessmentController::class, 'store'])->name('store');
+        Route::get('/result/{id}', [AssessmentController::class, 'result'])->name('result');
     });
 });

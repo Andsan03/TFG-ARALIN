@@ -70,4 +70,31 @@ class Booking extends Model
     {
         return $query->where('scheduled_at', '<', now());
     }
+
+    /**
+     * Verificar si un estudiante tiene una reserva activa para una clase específica
+     * @param int $studentId
+     * @param int $classId
+     * @return bool
+     */
+    public static function hasActiveBooking($studentId, $classId)
+    {
+        return self::where('student_id', $studentId)
+            ->where('class_id', $classId)
+            ->whereIn('status', ['pendiente', 'aceptada'])
+            ->exists();
+    }
+
+    /**
+     * Verificar si un estudiante tiene una reserva (cualquier estado) para una clase específica
+     * @param int $studentId
+     * @param int $classId
+     * @return bool
+     */
+    public static function hasAnyBooking($studentId, $classId)
+    {
+        return self::where('student_id', $studentId)
+            ->where('class_id', $classId)
+            ->exists();
+    }
 }

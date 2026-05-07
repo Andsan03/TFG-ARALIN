@@ -29,6 +29,37 @@
     <div class="row">
         <!-- Columna principal - Formulario -->
         <div class="col-lg-8">
+            <!-- Evaluación de Nivel Contextual -->
+            <div class="card shadow-sm mb-4 border-info">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-brain me-2"></i>Evaluación de Nivel - {{ ucfirst($class->category) }}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Antes de reservar, te recomendamos hacer una evaluación rápida para que el profesor conozca tu nivel actual en {{ $class->category }}.
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <a href="{{ route('assessment.create', $class->category) }}" class="btn btn-info">
+                            <i class="fas fa-clipboard-list me-2"></i>
+                            Hacer Evaluación de {{ ucfirst($class->category) }}
+                        </a>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#skipEvaluation">
+                            <i class="fas fa-forward me-2"></i>
+                            Omitir Evaluación
+                        </button>
+                    </div>
+                    <div class="collapse mt-3" id="skipEvaluation">
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            <small>Puedes omitir la evaluación, pero recomendamos hacerla para una mejor experiencia de aprendizaje.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
                     <h5 class="mb-0">
