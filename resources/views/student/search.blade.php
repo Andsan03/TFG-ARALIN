@@ -100,7 +100,7 @@
                                     {{ $class->category }}
                                 </span>
                             </div>
-                            <div class="text-end flex-shrink-0">
+                            <div class="text-end">
                                 <div class="fw-bold text-primary fs-5">€{{ number_format($class->price_per_hour, 2) }}</div>
                                 <div class="text-muted" style="font-size:.75rem">/hora</div>
                             </div>

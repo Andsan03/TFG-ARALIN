@@ -389,4 +389,50 @@ body {
 .dropdown-item:hover {
     background: #f1f5f9;
 }
+
+/* ===========================
+   VALORACIONES — ESTRELLAS
+   =========================== */
+ 
+.rating-stars {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    gap: 4px;
+    font-size: 2rem;
+}
+ 
+.rating-stars input {
+    display: none;
+}
+ 
+.rating-stars label {
+    color: #d1d5db;
+    cursor: pointer;
+    transition: color 0.15s, transform 0.15s;
+}
+ 
+.rating-stars label:hover,
+.rating-stars label:hover ~ label {
+    color: #ffc107;
+    transform: scale(1.15);
+}
+ 
+.rating-stars input:checked ~ label {
+    color: #ffc107;
+}
+
+/* ===========================
+   RESEÑAS PROFESOR
+   =========================== */
+ 
+.review-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+}
+ 
+.review-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
  

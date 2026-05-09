@@ -207,19 +207,19 @@
                 </h6>
                 <ul class="list-unstyled small text-muted mb-0">
                     <li class="mb-2 d-flex gap-2">
-                        <i class="fas fa-clock text-primary mt-1 flex-shrink-0"></i>
+                        <i class="fas fa-clock text-primary mt-1 "></i>
                         La reserva quedará pendiente hasta que el profesor la confirme
                     </li>
                     <li class="mb-2 d-flex gap-2">
-                        <i class="fas fa-ban text-primary mt-1 flex-shrink-0"></i>
+                        <i class="fas fa-ban text-primary mt-1 "></i>
                         Puedes cancelar hasta 24 horas antes
                     </li>
                     <li class="mb-2 d-flex gap-2">
-                        <i class="fas fa-comment text-primary mt-1 flex-shrink-0"></i>
+                        <i class="fas fa-comment text-primary mt-1 "></i>
                         El profesor contactará contigo para confirmar
                     </li>
                     <li class="d-flex gap-2">
-                        <i class="fas fa-eye text-primary mt-1 flex-shrink-0"></i>
+                        <i class="fas fa-eye text-primary mt-1 "></i>
                         Puedes ver el estado en "Mis Reservas"
                     </li>
                 </ul>

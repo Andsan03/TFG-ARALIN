@@ -24,10 +24,10 @@
                         <div>
                             @if($user->profile_photo)
                                 <img src="{{ asset('storage/' . $user->profile_photo) }}"
-                                     class="rounded-circle border border-4 border-white"
+                                     class="rounded-circle border-white"
                                      width="80" height="80" alt="Foto perfil">
                             @else
-                                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center border border-4 border-white"
+                                <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center border border-white"
                                      style="width:80px;height:80px;font-size:1.8rem">
                                     <i class="fas fa-user"></i>
                                 </div>

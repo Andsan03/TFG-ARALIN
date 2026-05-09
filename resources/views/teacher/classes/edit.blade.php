@@ -8,7 +8,7 @@
 
             {{-- CABECERA --}}
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h3 class="fw-bold mb-0">Crear nueva clase</h3>
+                <h3 class="fw-bold mb-0">Editar clase</h3>
                 <a href="{{ route('teacher.classes') }}" class="btn btn-outline-secondary btn-sm">
                     <i class="fas fa-arrow-left me-1"></i>Volver
                 </a>
@@ -25,8 +25,9 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('teacher.classes.store') }}">
+            <form method="POST" action="{{ route('teacher.classes.update', $class->id) }}">
                 @csrf
+                @method('PUT')
 
                 {{-- INFORMACIÓN BÁSICA --}}
                 <div class="bg-white border rounded-3 p-4 mb-4">
@@ -35,7 +36,7 @@
                     <div class="mb-3">
                         <label for="title" class="form-label fw-semibold small">Título de la clase</label>
                         <input type="text" id="title" name="title" class="form-control"
-                               value="{{ old('title') }}" required
+                               value="{{ old('title', $class->title) }}" required
                                placeholder="Ej: Matemáticas para principiantes">
                         @error('title')
                             <div class="text-danger small mt-1">{{ $message }}</div>
@@ -45,7 +46,7 @@
                     <div class="mb-3">
                         <label for="description" class="form-label fw-semibold small">Descripción</label>
                         <textarea id="description" name="description" class="form-control" rows="4" required
-                                  placeholder="Describe en qué consiste tu clase, qué aprenderán los alumnos, materiales necesarios...">{{ old('description') }}</textarea>
+                                  placeholder="Describe en qué consiste tu clase, qué aprenderán los alumnos, materiales necesarios...">{{ old('description', $class->description) }}</textarea>
                         <div class="form-text">Máximo 2000 caracteres. Una buena descripción aumenta las reservas.</div>
                         @error('description')
                             <div class="text-danger small mt-1">{{ $message }}</div>
@@ -57,15 +58,15 @@
                             <label for="category" class="form-label fw-semibold small">Categoría</label>
                             <select id="category" name="category" class="form-select" required>
                                 <option value="">Selecciona una categoría</option>
-                                <option value="matematicas"  {{ old('category') == 'matematicas'  ? 'selected' : '' }}>Matemáticas</option>
-                                <option value="ciencias"     {{ old('category') == 'ciencias'     ? 'selected' : '' }}>Ciencias</option>
-                                <option value="idiomas"      {{ old('category') == 'idiomas'      ? 'selected' : '' }}>Idiomas</option>
-                                <option value="arte"         {{ old('category') == 'arte'         ? 'selected' : '' }}>Arte</option>
-                                <option value="musica"       {{ old('category') == 'musica'       ? 'selected' : '' }}>Música</option>
-                                <option value="deporte"      {{ old('category') == 'deporte'      ? 'selected' : '' }}>Deporte</option>
-                                <option value="programacion" {{ old('category') == 'programacion' ? 'selected' : '' }}>Programación</option>
-                                <option value="negocios"     {{ old('category') == 'negocios'     ? 'selected' : '' }}>Negocios</option>
-                                <option value="otros"        {{ old('category') == 'otros'        ? 'selected' : '' }}>Otros</option>
+                                <option value="matematicas"  {{ old('category', $class->category) == 'matematicas'  ? 'selected' : '' }}>Matemáticas</option>
+                                <option value="ciencias"     {{ old('category', $class->category) == 'ciencias'     ? 'selected' : '' }}>Ciencias</option>
+                                <option value="idiomas"      {{ old('category', $class->category) == 'idiomas'      ? 'selected' : '' }}>Idiomas</option>
+                                <option value="arte"         {{ old('category', $class->category) == 'arte'         ? 'selected' : '' }}>Arte</option>
+                                <option value="musica"       {{ old('category', $class->category) == 'musica'       ? 'selected' : '' }}>Música</option>
+                                <option value="deporte"      {{ old('category', $class->category) == 'deporte'      ? 'selected' : '' }}>Deporte</option>
+                                <option value="programacion" {{ old('category', $class->category) == 'programacion' ? 'selected' : '' }}>Programación</option>
+                                <option value="negocios"     {{ old('category', $class->category) == 'negocios'     ? 'selected' : '' }}>Negocios</option>
+                                <option value="otros"        {{ old('category', $class->category) == 'otros'        ? 'selected' : '' }}>Otros</option>
                             </select>
                             @error('category')
                                 <div class="text-danger small mt-1">{{ $message }}</div>
@@ -75,10 +76,10 @@
                             <label for="level" class="form-label fw-semibold small">Nivel</label>
                             <select id="level" name="level" class="form-select" required>
                                 <option value="">Selecciona un nivel</option>
-                                <option value="beginner"     {{ old('level') == 'beginner'     ? 'selected' : '' }}>Principiante</option>
-                                <option value="intermediate" {{ old('level') == 'intermediate' ? 'selected' : '' }}>Intermedio</option>
-                                <option value="advanced"     {{ old('level') == 'advanced'     ? 'selected' : '' }}>Avanzado</option>
-                                <option value="all"          {{ old('level') == 'all'          ? 'selected' : '' }}>Todos los niveles</option>
+                                <option value="beginner"     {{ old('level', $class->level) == 'beginner'     ? 'selected' : '' }}>Principiante</option>
+                                <option value="intermediate" {{ old('level', $class->level) == 'intermediate' ? 'selected' : '' }}>Intermedio</option>
+                                <option value="advanced"     {{ old('level', $class->level) == 'advanced'     ? 'selected' : '' }}>Avanzado</option>
+                                <option value="all"          {{ old('level', $class->level) == 'all'          ? 'selected' : '' }}>Todos los niveles</option>
                             </select>
                             @error('level')
                                 <div class="text-danger small mt-1">{{ $message }}</div>
@@ -100,7 +101,7 @@
                                 </span>
                                 <input type="number" id="price_per_hour" name="price_per_hour"
                                        class="form-control"
-                                       value="{{ old('price_per_hour', 20) }}"
+                                       value="{{ old('price_per_hour', $class->price_per_hour) }}"
                                        min="1" max="999" step="0.01" required>
                             </div>
                             @error('price_per_hour')
@@ -113,7 +114,7 @@
                                 <div class="flex-fill">
                                     <input type="radio" class="btn-check" name="modality"
                                            id="mod-online" value="online"
-                                           {{ old('modality') == 'online' ? 'checked' : '' }}
+                                           {{ old('modality', $class->modality) == 'online' ? 'checked' : '' }}
                                            onchange="toggleLocation()" required>
                                     <label class="btn btn-outline-primary w-100 btn-sm py-2" for="mod-online">
                                         <i class="fas fa-video d-block mb-1"></i>Online
@@ -122,7 +123,7 @@
                                 <div class="flex-fill">
                                     <input type="radio" class="btn-check" name="modality"
                                            id="mod-presencial" value="presencial"
-                                           {{ old('modality') == 'presencial' ? 'checked' : '' }}
+                                           {{ old('modality', $class->modality) == 'presencial' ? 'checked' : '' }}
                                            onchange="toggleLocation()">
                                     <label class="btn btn-outline-primary w-100 btn-sm py-2" for="mod-presencial">
                                         <i class="fas fa-map-marker-alt d-block mb-1"></i>Presencial
@@ -131,7 +132,7 @@
                                 <div class="flex-fill">
                                     <input type="radio" class="btn-check" name="modality"
                                            id="mod-ambas" value="ambas"
-                                           {{ old('modality') == 'ambas' ? 'checked' : '' }}
+                                           {{ old('modality', $class->modality) == 'ambas' ? 'checked' : '' }}
                                            onchange="toggleLocation()">
                                     <label class="btn btn-outline-primary w-100 btn-sm py-2" for="mod-ambas">
                                         <i class="fas fa-globe d-block mb-1"></i>Ambas
@@ -152,7 +153,7 @@
                                 <i class="fas fa-map-marker-alt text-primary"></i>
                             </span>
                             <input type="text" id="location" name="location" class="form-control"
-                                   value="{{ old('location') }}"
+                                   value="{{ old('location', $class->location ?? '') }}"
                                    placeholder="Ej: Calle Gran Vía 123, Madrid">
                         </div>
                         <div class="form-text">Indica la dirección donde se impartirá la clase.</div>
@@ -181,7 +182,7 @@
                         <i class="fas fa-times me-2"></i>Cancelar
                     </a>
                     <button type="submit" class="btn btn-primary fw-bold px-4">
-                        <i class="fas fa-save me-2"></i>Crear clase
+                        <i class="fas fa-save me-2"></i>Guardar cambios
                     </button>
                 </div>
 
