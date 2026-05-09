@@ -38,42 +38,57 @@
                                     </label>
                                     
                                     @if($question->type === 'multiple_choice')
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" 
-                                                   name="answers[{{ $question->id }}]" 
-                                                   id="answer_{{ $question->id }}_a" 
-                                                   value="{{ $question->option_a }}" required>
-                                            <label class="form-check-label" for="answer_{{ $question->id }}_a">
-                                                {{ $question->option_a }}
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" 
-                                                   name="answers[{{ $question->id }}]" 
-                                                   id="answer_{{ $question->id }}_b" 
-                                                   value="{{ $question->option_b }}" required>
-                                            <label class="form-check-label" for="answer_{{ $question->id }}_b">
-                                                {{ $question->option_b }}
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" 
-                                                   name="answers[{{ $question->id }}]" 
-                                                   id="answer_{{ $question->id }}_c" 
-                                                   value="{{ $question->option_c }}" required>
-                                            <label class="form-check-label" for="answer_{{ $question->id }}_c">
-                                                {{ $question->option_c }}
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" 
-                                                   name="answers[{{ $question->id }}]" 
-                                                   id="answer_{{ $question->id }}_d" 
-                                                   value="{{ $question->option_d }}" required>
-                                            <label class="form-check-label" for="answer_{{ $question->id }}_d">
-                                                {{ $question->option_d }}
-                                            </label>
-                                        </div>
+                                        @if(isset($question->shuffled_options))
+                                            @foreach($question->shuffled_options as $key => $option)
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" 
+                                                           name="answers[{{ $question->id }}]" 
+                                                           id="answer_{{ $question->id }}_{{ $key }}" 
+                                                           value="{{ $key }}" required>
+                                                    <label class="form-check-label" for="answer_{{ $question->id }}_{{ $key }}">
+                                                        {{ $option }}
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            <!-- Fallback si no hay opciones mezcladas -->
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" 
+                                                       name="answers[{{ $question->id }}]" 
+                                                       id="answer_{{ $question->id }}_a" 
+                                                       value="a" required>
+                                                <label class="form-check-label" for="answer_{{ $question->id }}_a">
+                                                    {{ $question->option_a }}
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" 
+                                                       name="answers[{{ $question->id }}]" 
+                                                       id="answer_{{ $question->id }}_b" 
+                                                       value="b" required>
+                                                <label class="form-check-label" for="answer_{{ $question->id }}_b">
+                                                    {{ $question->option_b }}
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" 
+                                                       name="answers[{{ $question->id }}]" 
+                                                       id="answer_{{ $question->id }}_c" 
+                                                       value="c" required>
+                                                <label class="form-check-label" for="answer_{{ $question->id }}_c">
+                                                    {{ $question->option_c }}
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" 
+                                                       name="answers[{{ $question->id }}]" 
+                                                       id="answer_{{ $question->id }}_d" 
+                                                       value="d" required>
+                                                <label class="form-check-label" for="answer_{{ $question->id }}_d">
+                                                    {{ $question->option_d }}
+                                                </label>
+                                            </div>
+                                        @endif
                                     
                                     @elseif($question->type === 'text')
                                         <textarea class="form-control" 

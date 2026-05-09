@@ -1,224 +1,232 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container py-4">
-    <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="{{ route('student.search') }}">Buscar Clases</a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="{{ route('student.class.show', $class) }}">{{ $class->title }}</a>
-                    </li>
-                    <li class="breadcrumb-item active">Reservar Clase</li>
-                </ol>
-            </nav>
-            <h3 class="mb-1">Reservar Clase</h3>
-            <p class="text-muted mb-0">{{ $class->title }} • {{ $class->teacher->name }}</p>
-        </div>
-        <div>
-            <a href="{{ route('student.class.show', $class) }}" class="btn btn-outline-secondary">
-                <i class="fas fa-arrow-left me-2"></i>Volver a Detalles
-            </a>
-        </div>
-    </div>
 
-    <div class="row">
-        <!-- Columna principal - Formulario -->
+<div class="container py-4">
+
+    {{-- BREADCRUMB --}}
+    <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{{ route('student.search') }}" class="text-decoration-none">Buscar clases</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ route('student.class.show', $class) }}" class="text-decoration-none">{{ $class->title }}</a>
+            </li>
+            <li class="breadcrumb-item active">Reservar</li>
+        </ol>
+    </nav>
+
+    <div class="row g-4">
+
+        {{-- COLUMNA PRINCIPAL --}}
         <div class="col-lg-8">
-            <!-- Evaluación de Nivel Contextual -->
-            <div class="card shadow-sm mb-4 border-info">
-                <div class="card-header bg-info text-white">
-                    <h5 class="mb-0">
-                        <i class="fas fa-brain me-2"></i>Evaluación de Nivel - {{ ucfirst($class->category) }}
-                    </h5>
+
+            {{-- EVALUACIÓN DE NIVEL --}}
+            <div class="bg-white border border-primary border-opacity-25 rounded-3 p-4 mb-4">
+                <div class="d-flex align-items-center gap-2 mb-3">
+                    <div class="stat-icon bg-primary bg-opacity-10 text-primary">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-0">Evaluación de nivel — {{ ucfirst($class->category) }}</h5>
+                        <p class="text-muted small mb-0">Recomendado antes de reservar</p>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="alert alert-info">
-                        <i class="fas fa-info-circle me-2"></i>
-                        Antes de reservar, te recomendamos hacer una evaluación rápida para que el profesor conozca tu nivel actual en {{ $class->category }}.
-                    </div>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                        <a href="{{ route('assessment.create', $class->category) }}" class="btn btn-info">
-                            <i class="fas fa-clipboard-list me-2"></i>
-                            Hacer Evaluación de {{ ucfirst($class->category) }}
-                        </a>
-                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#skipEvaluation">
-                            <i class="fas fa-forward me-2"></i>
-                            Omitir Evaluación
-                        </button>
-                    </div>
-                    <div class="collapse mt-3" id="skipEvaluation">
-                        <div class="alert alert-warning">
-                            <i class="fas fa-exclamation-triangle me-2"></i>
-                            <small>Puedes omitir la evaluación, pero recomendamos hacerla para una mejor experiencia de aprendizaje.</small>
-                        </div>
+                <p class="text-muted small mb-3">
+                    Te recomendamos hacer una evaluación rápida para que el profesor conozca tu nivel
+                    en <strong>{{ $class->category }}</strong> antes de la clase.
+                </p>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="{{ route('assessment.create', $class->category) }}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-clipboard-list me-2"></i>Hacer evaluación
+                    </a>
+                    <button type="button" class="btn btn-outline-secondary btn-sm"
+                            data-bs-toggle="collapse" data-bs-target="#skipNote">
+                        <i class="fas fa-forward me-1"></i>Omitir
+                    </button>
+                </div>
+                <div class="collapse mt-3" id="skipNote">
+                    <div class="alert alert-warning small mb-0 py-2">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Puedes omitir la evaluación, pero el profesor llegará sin información previa sobre tu nivel.
                     </div>
                 </div>
             </div>
 
-            <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">
-                        <i class="fas fa-calendar-plus me-2"></i>Formulario de Reserva
-                    </h5>
-                </div>
-                <div class="card-body">
-                    <form method="POST" action="{{ route('student.book', $class) }}">
-                        @csrf
-                        
-                        <!-- Información de la clase -->
-                        <div class="alert alert-info mb-4">
-                            <div class="d-flex align-items-center">
-                                @if($class->teacher->profile_photo)
-                                    <img src="{{ asset('storage/' . $class->teacher->profile_photo) }}" 
-                                         class="rounded-circle me-3" width="50" height="50" alt="Profesor">
-                                @else
-                                    <div class="rounded-circle bg-secondary d-inline-flex align-items-center justify-content-center me-3" 
-                                         style="width: 50px; height: 50px;">
-                                        <i class="fas fa-user text-white"></i>
-                                    </div>
-                                @endif
-                                <div>
-                                    <h6 class="mb-1">{{ $class->title }}</h6>
-                                    <p class="text-muted mb-0">{{ $class->teacher->name }} • €{{ number_format($class->price_per_hour, 2) }}/hora</p>
+            {{-- FORMULARIO --}}
+            <div class="bg-white border rounded-3 p-4">
+                <h5 class="fw-bold mb-4">
+                    <i class="fas fa-calendar-plus text-primary me-2"></i>Formulario de reserva
+                </h5>
+
+                <form method="POST" action="{{ route('student.book', $class) }}">
+                    @csrf
+
+                    {{-- Resumen de la clase --}}
+                    <div class="d-flex align-items-center bg-light rounded-3 p-3 mb-4">
+                        @if($class->teacher->profile_photo)
+                            <img src="{{ asset('storage/' . $class->teacher->profile_photo) }}"
+                                 class="rounded-circle me-3" width="48" height="48" alt="Profesor">
+                        @else
+                            <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center me-3"
+                                 style="width:48px;height:48px;font-size:1.1rem">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        @endif
+                        <div class="flex-grow-1">
+                            <div class="fw-bold">{{ $class->title }}</div>
+                            <div class="text-muted small">{{ $class->teacher->name }}</div>
+                        </div>
+                        <div class="text-primary fw-bold">€{{ number_format($class->price_per_hour, 2) }}/h</div>
+                    </div>
+
+                    {{-- Modalidad (solo si es ambas) --}}
+                    @if($class->modality === 'ambas')
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Modalidad de la clase</label>
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <input type="radio" class="btn-check" name="booking_modality"
+                                           id="mod-online" value="online" required>
+                                    <label class="btn btn-outline-primary w-100" for="mod-online">
+                                        <i class="fas fa-video d-block mb-1"></i>Online
+                                    </label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="radio" class="btn-check" name="booking_modality"
+                                           id="mod-presencial" value="presencial" required>
+                                    <label class="btn btn-outline-primary w-100" for="mod-presencial">
+                                        <i class="fas fa-map-marker-alt d-block mb-1"></i>Presencial
+                                    </label>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Modalidad (solo para clases mixtas) -->
-                        @if($class->modality === 'mixta')
-                        <div class="mb-4">
-                            <label for="booking_modality" class="form-label">
-                                <i class="fas fa-exchange-alt me-2"></i>Modalidad de la clase
-                            </label>
-                            <select class="form-select" id="booking_modality" name="booking_modality" required>
-                                <option value="">Selecciona una modalidad</option>
-                                <option value="online">Online</option>
-                                <option value="presential">Presencial</option>
-                            </select>
-                            <small class="form-text text-muted">
-                                Esta clase admite ambas modalidades. Elige la que prefieras.
-                            </small>
-                        </div>
-                        @else
-                        <!-- Para clases online o presenciales, guardar la modalidad automáticamente -->
+                    @else
                         <input type="hidden" name="booking_modality" value="{{ $class->modality }}">
-                        @endif
+                    @endif
 
-                        <!-- Fecha y hora -->
-                        <div class="mb-4">
-                            <label for="scheduled_at" class="form-label">
-                                <i class="fas fa-calendar-alt me-2"></i>Fecha y hora de la clase
+                    {{-- Fecha y hora --}}
+                    <div class="mb-4">
+                        <label for="scheduled_at" class="form-label fw-semibold">
+                            Fecha y hora de la clase
+                        </label>
+                        <input type="datetime-local" class="form-control @error('scheduled_at') is-invalid @enderror"
+                               id="scheduled_at" name="scheduled_at"
+                               required min="{{ now()->format('Y-m-d\TH:i') }}"
+                               value="{{ old('scheduled_at') }}">
+                        <div class="form-text">Selecciona una fecha y hora futuras.</div>
+                        @error('scheduled_at')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- Mensaje para el profesor --}}
+                    <div class="mb-4">
+                        <label for="message" class="form-label fw-semibold">
+                            Mensaje para el profesor <span class="text-muted fw-normal">(opcional)</span>
+                        </label>
+                        <textarea class="form-control" id="message" name="message" rows="3"
+                                  placeholder="Cuéntale tus objetivos o lo que quieres trabajar en la clase...">{{ old('message') }}</textarea>
+                        <div class="form-text">Máximo 500 caracteres.</div>
+                    </div>
+
+                    {{-- Términos --}}
+                    <div class="mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="terms" required>
+                            <label class="form-check-label small text-muted" for="terms">
+                                Acepto los <a href="#" class="text-primary">términos y condiciones</a>
+                                y la <a href="#" class="text-primary">política de cancelación</a>
                             </label>
-                            <input type="datetime-local" class="form-control" id="scheduled_at" 
-                                   name="scheduled_at" required min="{{ now()->format('Y-m-d\TH:i') }}">
-                            <small class="form-text text-muted">
-                                Selecciona una fecha y hora futuras para tu clase
-                            </small>
                         </div>
+                    </div>
 
-                        <!-- Mensaje para el profesor -->
-                        <div class="mb-4">
-                            <label for="message" class="form-label">
-                                <i class="fas fa-comment me-2"></i>Mensaje para el profesor (opcional)
-                            </label>
-                            <textarea class="form-control" id="message" name="message" rows="4" 
-                                      placeholder="Escribe algo sobre ti, tus objetivos o lo que quieres aprender en esta clase..."></textarea>
-                            <small class="form-text text-muted">
-                                Máximo 500 caracteres
-                            </small>
-                        </div>
+                    {{-- Botones --}}
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary fw-bold px-4">
+                            <i class="fas fa-calendar-plus me-2"></i>Confirmar reserva
+                        </button>
+                        <a href="{{ route('student.class.show', $class) }}" class="btn btn-outline-secondary">
+                            <i class="fas fa-times me-1"></i>Cancelar
+                        </a>
+                    </div>
 
-                        <!-- Términos y condiciones -->
-                        <div class="mb-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="terms" required>
-                                <label class="form-check-label" for="terms">
-                                    Acepto los <a href="#" class="text-primary">términos y condiciones</a> 
-                                    y la <a href="#" class="text-primary">política de cancelación</a>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Botones -->
-                        <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-calendar-plus me-2"></i>Confirmar Reserva
-                            </button>
-                            <a href="{{ route('student.class.show', $class) }}" class="btn btn-outline-secondary">
-                                <i class="fas fa-times me-2"></i>Cancelar
-                            </a>
-                        </div>
-                    </form>
-                </div>
+                </form>
             </div>
+
         </div>
 
-        <!-- Columna lateral - Resumen -->
+        {{-- COLUMNA LATERAL --}}
         <div class="col-lg-4">
-            <!-- Card de resumen -->
-            <div class="card shadow-sm mb-4">
-                <div class="card-header">
-                    <h6 class="mb-0">Resumen de la Reserva</h6>
+
+            {{-- RESUMEN --}}
+            <div class="bg-white border rounded-3 p-4 mb-4 sticky-top" style="top: 80px">
+                <h6 class="fw-bold mb-3">Resumen de la reserva</h6>
+
+                <div class="mb-2 d-flex justify-content-between small">
+                    <span class="text-muted">Clase</span>
+                    <span class="fw-semibold text-end" style="max-width:160px">{{ $class->title }}</span>
                 </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <strong>Clase:</strong>
-                        <p class="mb-1">{{ $class->title }}</p>
-                    </div>
-                    <div class="mb-3">
-                        <strong>Profesor:</strong>
-                        <p class="mb-1">{{ $class->teacher->name }}</p>
-                    </div>
-                    <div class="mb-3">
-                        <strong>Categoría:</strong>
-                        <p class="mb-1">
-                            <span class="badge bg-primary">{{ $class->category }}</span>
-                        </p>
-                    </div>
-                    <div class="mb-3">
-                        <strong>Nivel:</strong>
-                        <p class="mb-1">
-                            <span class="badge bg-info">{{ $class->level }}</span>
-                        </p>
-                    </div>
-                    <div class="mb-3">
-                        <strong>Modalidad:</strong>
-                        <p class="mb-1">
-                            <span class="badge bg-warning text-dark">
-                                {{ $class->modality === 'online' ? 'Online' : ($class->modality === 'presential' ? 'Presencial' : 'Mixta') }}
-                            </span>
-                        </p>
-                    </div>
-                    <hr>
-                    <div class="mb-3">
-                        <strong>Precio:</strong>
-                        <p class="mb-1 text-primary fw-bold">€{{ number_format($class->price_per_hour, 2) }}/hora</p>
-                    </div>
+                <div class="mb-2 d-flex justify-content-between small">
+                    <span class="text-muted">Profesor</span>
+                    <span class="fw-semibold">{{ $class->teacher->name }}</span>
+                </div>
+                <div class="mb-2 d-flex justify-content-between small">
+                    <span class="text-muted">Categoría</span>
+                    <span class="badge bg-primary bg-opacity-10 text-primary">{{ $class->category }}</span>
+                </div>
+                <div class="mb-2 d-flex justify-content-between small">
+                    <span class="text-muted">Nivel</span>
+                    <span class="badge bg-secondary bg-opacity-10 text-secondary">
+                        @switch($class->level)
+                            @case('beginner') Principiante @break
+                            @case('intermediate') Intermedio @break
+                            @case('advanced') Avanzado @break
+                            @default Todos
+                        @endswitch
+                    </span>
+                </div>
+                <div class="mb-3 d-flex justify-content-between small">
+                    <span class="text-muted">Modalidad</span>
+                    <span class="badge bg-info bg-opacity-10 text-info">{{ ucfirst($class->modality) }}</span>
+                </div>
+
+                <hr>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="fw-semibold">Precio</span>
+                    <span class="text-primary fw-bold fs-5">€{{ number_format($class->price_per_hour, 2) }}/h</span>
                 </div>
             </div>
 
-            <!-- Card de información -->
-            <div class="card shadow-sm">
-                <div class="card-header">
-                    <h6 class="mb-0">
-                        <i class="fas fa-info-circle me-2"></i>Información Importante
-                    </h6>
-                </div>
-                <div class="card-body">
-                    <ul class="small mb-0">
-                        <li class="mb-2">La reserva quedará pendiente hasta que el profesor la confirme</li>
-                        <li class="mb-2">Podrás cancelar la reserva hasta 24 horas antes</li>
-                        <li class="mb-2">El profesor contactará contigo para confirmar los detalles</li>
-                        <li class="mb-0">Podrás ver el estado de tu reserva en "Mis Reservas"</li>
-                    </ul>
-                </div>
+            {{-- INFORMACIÓN --}}
+            <div class="bg-white border rounded-3 p-4">
+                <h6 class="fw-bold mb-3">
+                    <i class="fas fa-info-circle text-primary me-2"></i>A tener en cuenta
+                </h6>
+                <ul class="list-unstyled small text-muted mb-0">
+                    <li class="mb-2 d-flex gap-2">
+                        <i class="fas fa-clock text-primary mt-1 flex-shrink-0"></i>
+                        La reserva quedará pendiente hasta que el profesor la confirme
+                    </li>
+                    <li class="mb-2 d-flex gap-2">
+                        <i class="fas fa-ban text-primary mt-1 flex-shrink-0"></i>
+                        Puedes cancelar hasta 24 horas antes
+                    </li>
+                    <li class="mb-2 d-flex gap-2">
+                        <i class="fas fa-comment text-primary mt-1 flex-shrink-0"></i>
+                        El profesor contactará contigo para confirmar
+                    </li>
+                    <li class="d-flex gap-2">
+                        <i class="fas fa-eye text-primary mt-1 flex-shrink-0"></i>
+                        Puedes ver el estado en "Mis Reservas"
+                    </li>
+                </ul>
             </div>
+
         </div>
     </div>
 </div>
+
 @endsection

@@ -110,7 +110,7 @@
                                     <i class="fas fa-search me-2"></i>
                                     Buscar Clases Adecuadas
                                 </a>
-                                <a href="{{ route('assessment.create') }}" class="btn btn-outline-secondary">
+                                <a href="{{ route('assessment.create', $assessment->subject) }}" class="btn btn-outline-secondary">
                                     <i class="fas fa-redo me-2"></i>
                                     Reintentar Evaluación
                                 </a>
@@ -129,17 +129,84 @@
                                 <div class="card-header">
                                     <h6 class="mb-0">
                                         <i class="fas fa-list me-2"></i>
-                                        Tus Respuestas
+                                        Resultados por Pregunta
                                     </h6>
                                 </div>
                                 <div class="card-body">
                                     @if($assessment->answers)
-                                        @foreach($assessment->answers as $questionId => $answer)
-                                            <div class="mb-2">
-                                                <strong>Pregunta {{ $loop->index + 1 }}:</strong>
-                                                <span class="text-muted">{{ $answer }}</span>
+                                        <?php
+                                        $correctCount = 0;
+                                        $incorrectCount = 0;
+                                        ?>
+                                        @foreach($assessment->answers as $questionId => $userAnswer)
+                                            @php
+                                            $question = \App\Models\Question::find($questionId);
+                                            $isCorrect = $question && $question->correct_option === $userAnswer;
+                                            if ($isCorrect) {
+                                                $correctCount++;
+                                            } else {
+                                                $incorrectCount++;
+                                            }
+                                            @endphp
+                                            <div class="mb-3 p-3 border rounded @if($isCorrect) border-success bg-light @else border-danger bg-light @endif">
+                                                <div class="d-flex justify-content-between align-items-start">
+                                                    <div class="flex-grow-1">
+                                                        <strong class="d-block mb-2">Pregunta {{ $loop->index + 1 }}:</strong>
+                                                        <p class="mb-1 text-secondary">{{ $question->question_text ?? 'Pregunta no encontrada' }}</p>
+                                                        
+                                                        <!-- Mostrar las opciones sin indicar cuál es correcta -->
+                                                        <div class="small text-muted">
+                                                            @if($question->type === 'multiple_choice')
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <strong>Tu respuesta:</strong> 
+                                                                        <span class="badge @if($isCorrect) bg-success @else bg-danger @endif text-white">
+                                                                            {{ strtoupper($userAnswer) }}) {{ $question->{'option_' . $userAnswer} ?? 'Opción no encontrada' }}
+                                                                        </span>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <strong>Resultado:</strong>
+                                                                        @if($isCorrect)
+                                                                            <span class="text-success fw-bold">
+                                                                                <i class="fas fa-check-circle me-1"></i>Correcto
+                                                                            </span>
+                                                                        @else
+                                                                            <span class="text-danger fw-bold">
+                                                                                <i class="fas fa-times-circle me-1"></i>Incorrecto
+                                                                            </span>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         @endforeach
+                                        
+                                        <!-- Resumen de resultados -->
+                                        <div class="mt-4 p-3 bg-light rounded">
+                                            <div class="row text-center">
+                                                <div class="col-md-4">
+                                                    <div class="p-3">
+                                                        <h4 class="text-success mb-1">{{ $correctCount }}</h4>
+                                                        <p class="mb-0">Correctas</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="p-3">
+                                                        <h4 class="text-danger mb-1">{{ $incorrectCount }}</h4>
+                                                        <p class="mb-0">Incorrectas</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="p-3">
+                                                        <h4 class="text-primary mb-1">{{ $correctCount + $incorrectCount }}</h4>
+                                                        <p class="mb-0">Total</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @else
                                         <p class="text-muted">No hay respuestas detalladas disponibles.</p>
                                     @endif

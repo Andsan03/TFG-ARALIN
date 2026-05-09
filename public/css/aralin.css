@@ -3,7 +3,58 @@
    Autor: Andrew Sanchez Abello
    =========================== */
 
-/* HERO */
+/* ===========================
+   NIVELES DE EVALUACIÓN
+   =========================== */
+.assessment-level-principiante {
+    border-left: 4px solid #28a745 !important;
+    background-color: #f8fff9;
+}
+
+.assessment-level-intermedio {
+    border-left: 4px solid #ffc107 !important;
+    background-color: #fffdf7;
+}
+
+.assessment-level-avanzado {
+    border-left: 4px solid #dc3545 !important;
+    background-color: #fff8f8;
+}
+
+.level-badge-principiante {
+    background-color: #28a745;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.level-badge-intermedio {
+    background-color: #ffc107;
+    color: #212529;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.level-badge-avanzado {
+    background-color: #dc3545;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* ===========================
+   HERO
+   =========================== */
+
+body {
+    background-color: rgb(1, 116, 188);
+}
 .hero {
     background: linear-gradient(135deg, #eef3ff, #93b0f8);
     padding: 80px 0;
@@ -15,7 +66,9 @@
     width: 100%;
 }
 
-/* TARJETAS DE SERVICIOS */
+/* ===========================
+   TARJETAS DE SERVICIOS
+   =========================== */
 .servicio-card {
     background: #f8faff;
     border: 1px solid #e5e7eb;
@@ -41,7 +94,9 @@
     margin-bottom: 16px;
 }
 
-/* LISTA CHECK */
+/* ===========================
+   LISTA CHECK
+   =========================== */
 .lista-check {
     list-style: none;
     padding: 0;
@@ -56,7 +111,9 @@
     font-size: 0.95rem;
 }
 
-/* PASOS */
+/* ===========================
+   PASOS
+   =========================== */
 .paso {
     text-align: center;
     padding: 20px;
@@ -74,26 +131,34 @@
     margin: 0 auto 14px;
 }
 
-/* CONTACTO */
+/* ===========================
+   CONTACTO
+   =========================== */
 .contacto-card {
     border-radius: 12px;
     padding: 32px;
 }
 
-/* FOOTER */
+/* ===========================
+   FOOTER
+   =========================== */
 .mi-footer {
     padding: 24px 0;
     font-size: 0.88rem;
 }
 
-/* IMÁGENES REDONDEADAS */
+/* ===========================
+   IMAGENES REDONDAS
+   =========================== */
 .img-seccion {
     border-radius: 16px;
     width: 100%;
     box-shadow: 0 12px 40px rgba(0,0,0,0.1);
 }
 
-/* RESPONSIVE */
+/* ===========================
+   RESPONSIVE
+   =========================== */
 @media (max-width: 768px) {
     .hero { padding: 50px 0; }
     .hero h1 { font-size: 1.8rem; }
@@ -101,7 +166,7 @@
 
 
 /* ===========================
-   LOGIN Y REGISTER
+   LOGIN
    =========================== */
 
 .login-page {
@@ -148,3 +213,180 @@
     border-radius: 6px;
     box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.15);
 }
+
+
+/* ===========================
+   DASHBOARD
+   =========================== */
+
+.dashboard-stat {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.dashboard-stat:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.stat-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+.dashboard-card {
+    transition: box-shadow 0.2s;
+}
+
+.dashboard-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+}
+
+.dashboard-card-header {
+    background: #f8faff;
+    border-radius: 12px 12px 0 0;
+}
+
+/* ===========================
+   BÚSQUEDA DE CLASES
+   =========================== */
+ 
+.search-filters {
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+ 
+.search-filters .input-group-text {
+    border-right: 0;
+}
+ 
+.search-filters .form-control {
+    border-left: 0;
+}
+ 
+.class-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+ 
+.class-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+ 
+.class-card-top {
+    background: #f8faff;
+    border-radius: 12px 12px 0 0;
+}
+
+/* ===========================
+   RESERVAS
+   =========================== */
+ 
+.booking-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+}
+ 
+.booking-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+ 
+/* Barra de color según estado */
+.booking-status-bar {
+    height: 4px;
+    width: 100%;
+}
+ 
+.status-pendiente  { background: #ffc107; }
+.status-aceptada   { background: #198754; }
+.status-completada { background: #0d6efd; }
+.status-rechazada  { background: #dc3545; }
+
+/* ===========================
+   FAVORITOS
+   =========================== */
+ 
+.teacher-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+ 
+.teacher-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+/* ===========================
+   DETALLE DE CLASE
+   =========================== */
+ 
+.stat-box {
+    transition: background 0.2s;
+}
+ 
+.stat-box:hover {
+    background: #e8f0fe !important;
+}
+
+/* ===========================
+   PERFIL
+   =========================== */
+ 
+.profile-banner {
+    border-radius: 12px 12px 0 0;
+}
+ 
+.border-4 {
+    border-width: 4px !important;
+}
+
+/* ===========================
+   NAVBAR
+   =========================== */
+ 
+.navbar {
+    padding: 10px 0;
+}
+ 
+.navbar-brand {
+    font-size: 1.3rem;
+    letter-spacing: -0.5px;
+}
+ 
+.navbar .nav-link {
+    font-size: 0.9rem;
+    color: #6b7280;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+}
+ 
+.navbar .nav-link:hover {
+    background: #f1f5f9;
+    color: #1a1a2e;
+}
+ 
+.navbar .nav-link.active {
+    color: #1a56db;
+    background: #e8f0fe;
+}
+ 
+.dropdown-menu {
+    border-radius: 10px;
+    min-width: 200px;
+}
+ 
+.dropdown-item {
+    font-size: 0.9rem;
+    border-radius: 6px;
+    margin: 1px 4px;
+    width: auto;
+}
+ 
+.dropdown-item:hover {
+    background: #f1f5f9;
+}
+ 

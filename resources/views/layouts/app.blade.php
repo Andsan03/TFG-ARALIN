@@ -10,210 +10,223 @@
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Font Awesome (iconos) -->
+    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-    <!-- CSS propio de Aralin -->
+    <!-- CSS Aralin -->
     <link rel="stylesheet" href="{{ asset('css/aralin.css') }}">
 </head>
 <body>
-    <div id="app">
+<div id="app">
 
-        {{-- NAVBAR --}}
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand fw-bold text-primary" href="{{ url('/') }}">
-                    <i class="fas fa-graduation-cap me-2"></i>Aralin
-                </a>
-                <button class="navbar-toggler" type="button"
+    {{-- NAVBAR --}}
+    <nav class="navbar navbar-expand-md bg-white border-bottom sticky-top">
+        <div class="container">
+
+            {{-- Logo --}}
+            <a class="navbar-brand fw-bold text-primary" href="{{ url('/') }}">
+                <i class="fas fa-graduation-cap me-2"></i>aralin
+            </a>
+
+            {{-- Toggler móvil --}}
+            <button class="navbar-toggler border-0" type="button"
                     data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
+                    data-bs-target="#navbarMain"
+                    aria-controls="navbarMain"
                     aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                    aria-label="Menú">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" id="navbarMain">
 
-                    {{-- Links izquierda según rol --}}
-                    <ul class="navbar-nav me-auto">
-                        @auth
-                            @if(Auth::user()->role === 'student')
-                                <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('student.search') ? 'active' : '' }}"
-                                       href="{{ route('student.search') }}">
-                                        <i class="fas fa-search me-1"></i>Buscar Clases
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('student.dashboard') ? 'active' : '' }}"
-                                       href="{{ route('student.dashboard') }}">
-                                        <i class="fas fa-tachometer-alt me-1"></i>Dashboard
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('student.bookings*') ? 'active' : '' }}"
-                                       href="{{ route('student.bookings') }}">
-                                        <i class="fas fa-calendar me-1"></i>Mis Reservas
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('student.favorites*') ? 'active' : '' }}"
-                                       href="{{ route('student.favorites') }}">
-                                        <i class="fas fa-heart me-1"></i>Favoritos
-                                    </a>
-                                </li>
+                {{-- Links izquierda según rol --}}
+                <ul class="navbar-nav me-auto mt-2 mt-md-0">
+                    @auth
 
-                            @elseif(Auth::user()->role === 'teacher')
-                                <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('teacher.dashboard') ? 'active' : '' }}"
-                                       href="{{ route('teacher.dashboard') }}">
-                                        <i class="fas fa-tachometer-alt me-1"></i>Dashboard
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('teacher.classes*') ? 'active' : '' }}"
-                                       href="{{ route('teacher.classes') }}">
-                                        <i class="fas fa-book me-1"></i>Mis Clases
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('teacher.bookings') ? 'active' : '' }}"
-                                       href="{{ route('teacher.bookings') }}">
-                                        <i class="fas fa-calendar me-1"></i>Reservas
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('teacher.reviews') ? 'active' : '' }}"
-                                       href="{{ route('teacher.reviews') }}">
-                                        <i class="fas fa-star me-1"></i>Reseñas
-                                    </a>
-                                </li>
-
-                            @elseif(Auth::user()->role === 'admin')
-                                <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"
-                                       href="{{ route('admin.dashboard') }}">
-                                        <i class="fas fa-tachometer-alt me-1"></i>Dashboard Admin
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link {{ request()->routeIs('admin.users*') ? 'active' : '' }}"
-                                       href="{{ route('admin.users') }}">
-                                        <i class="fas fa-users me-1"></i>Usuarios
-                                    </a>
-                                </li>
-                            @endif
-
+                        @if(Auth::user()->role === 'student')
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->routeIs('profile*') ? 'active' : '' }}"
-                                   href="{{ route('profile.show') }}">
-                                    <i class="fas fa-user me-1"></i>Mi Perfil
+                                <a class="nav-link {{ request()->routeIs('student.dashboard') ? 'active fw-semibold' : '' }}"
+                                   href="{{ route('student.dashboard') }}">
+                                    <i class="fas fa-tachometer-alt me-1"></i>Dashboard
                                 </a>
                             </li>
-                        @endauth
-                    </ul>
-
-                    {{-- Links derecha: login/registro o dropdown usuario --}}
-                    <ul class="navbar-nav ms-auto">
-                        @guest
-                            @if(!request()->routeIs('login') && !request()->routeIs('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">
-                                        <i class="fas fa-sign-in-alt me-1"></i>Iniciar sesión
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="btn btn-primary btn-sm ms-2 px-3" href="{{ route('register') }}">
-                                        Registrarse
-                                    </a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle d-flex align-items-center"
-                                   href="#" role="button"
-                                   data-bs-toggle="dropdown"
-                                   aria-expanded="false">
-                                    @if(Auth::user()->profile_photo)
-                                        <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}"
-                                             class="rounded-circle me-2"
-                                             width="28" height="28" alt="Foto perfil">
-                                    @else
-                                        <div class="rounded-circle bg-primary d-inline-flex align-items-center justify-content-center me-2"
-                                             style="width:28px; height:28px;">
-                                            <i class="fas fa-user text-white" style="font-size:12px;"></i>
-                                        </div>
-                                    @endif
-                                    {{ Auth::user()->name }}
-                                    <span class="badge ms-2
-                                        @switch(Auth::user()->role)
-                                            @case('student') bg-success @break
-                                            @case('teacher') bg-primary @break
-                                            @case('admin') bg-danger @break
-                                        @endswitch">
-                                        @switch(Auth::user()->role)
-                                            @case('student') Alumno @break
-                                            @case('teacher') Profesor @break
-                                            @case('admin') Admin @break
-                                        @endswitch
-                                    </span>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('student.search') ? 'active fw-semibold' : '' }}"
+                                   href="{{ route('student.search') }}">
+                                    <i class="fas fa-search me-1"></i>Buscar clases
                                 </a>
-
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('profile.show') }}">
-                                            <i class="fas fa-user me-2"></i>Mi Perfil
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('dashboard') }}">
-                                            <i class="fas fa-tachometer-alt me-2"></i>Dashboard
-                                        </a>
-                                    </li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li>
-                                        <a class="dropdown-item text-danger" href="{{ route('logout') }}"
-                                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            <i class="fas fa-sign-out-alt me-2"></i>Cerrar sesión
-                                        </a>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                            @csrf
-                                        </form>
-                                    </li>
-                                </ul>
                             </li>
-                        @endguest
-                    </ul>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('student.bookings*') ? 'active fw-semibold' : '' }}"
+                                   href="{{ route('student.bookings') }}">
+                                    <i class="fas fa-calendar me-1"></i>Mis reservas
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('student.favorites*') ? 'active fw-semibold' : '' }}"
+                                   href="{{ route('student.favorites') }}">
+                                    <i class="fas fa-heart me-1"></i>Favoritos
+                                </a>
+                            </li>
 
-                </div>
+                        @elseif(Auth::user()->role === 'teacher')
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('teacher.dashboard') ? 'active fw-semibold' : '' }}"
+                                   href="{{ route('teacher.dashboard') }}">
+                                    <i class="fas fa-tachometer-alt me-1"></i>Dashboard
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('teacher.classes*') ? 'active fw-semibold' : '' }}"
+                                   href="{{ route('teacher.classes') }}">
+                                    <i class="fas fa-book me-1"></i>Mis clases
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('teacher.bookings') ? 'active fw-semibold' : '' }}"
+                                   href="{{ route('teacher.bookings') }}">
+                                    <i class="fas fa-calendar me-1"></i>Reservas
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('teacher.reviews') ? 'active fw-semibold' : '' }}"
+                                   href="{{ route('teacher.reviews') }}">
+                                    <i class="fas fa-star me-1"></i>Reseñas
+                                </a>
+                            </li>
+
+                        @elseif(Auth::user()->role === 'admin')
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active fw-semibold' : '' }}"
+                                   href="{{ route('admin.dashboard') }}">
+                                    <i class="fas fa-tachometer-alt me-1"></i>Dashboard
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('admin.users*') ? 'active fw-semibold' : '' }}"
+                                   href="{{ route('admin.users') }}">
+                                    <i class="fas fa-users me-1"></i>Usuarios
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('admin.classes*') ? 'active fw-semibold' : '' }}"
+                                   href="{{ route('admin.classes') }}">
+                                    <i class="fas fa-book me-1"></i>Clases
+                                </a>
+                            </li>
+                        @endif
+
+                    @endauth
+                </ul>
+
+                {{-- Links derecha --}}
+                <ul class="navbar-nav ms-auto align-items-center mt-2 mt-md-0">
+                    @guest
+                        @if(!request()->routeIs('login') && !request()->routeIs('register'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">
+                                    Iniciar sesión
+                                </a>
+                            </li>
+                            <li class="nav-item ms-1">
+                                <a class="btn btn-primary btn-sm px-3" href="{{ route('register') }}">
+                                    Registrarse
+                                </a>
+                            </li>
+                        @endif
+                    @else
+                        {{-- Dropdown usuario --}}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center gap-2"
+                               href="#" role="button"
+                               data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                @if(Auth::user()->profile_photo)
+                                    <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}"
+                                         class="rounded-circle"
+                                         width="30" height="30" alt="Foto">
+                                @else
+                                    <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center"
+                                         style="width:30px;height:30px;font-size:12px;">
+                                        <i class="fas fa-user text-white"></i>
+                                    </div>
+                                @endif
+                                <span class="d-none d-md-inline">{{ Auth::user()->name }}</span>
+                                <span class="badge
+                                    @switch(Auth::user()->role)
+                                        @case('student') bg-success @break
+                                        @case('teacher') bg-primary @break
+                                        @case('admin')   bg-danger  @break
+                                    @endswitch">
+                                    @switch(Auth::user()->role)
+                                        @case('student') Alumno   @break
+                                        @case('teacher') Profesor @break
+                                        @case('admin')   Admin    @break
+                                    @endswitch
+                                </span>
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-1">
+                                <li class="px-3 py-2 border-bottom">
+                                    <div class="fw-semibold small">{{ Auth::user()->name }}</div>
+                                    <div class="text-muted" style="font-size:.75rem">{{ Auth::user()->email }}</div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item py-2" href="{{ route('profile.show') }}">
+                                        <i class="fas fa-user me-2 text-muted"></i>Mi perfil
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item py-2" href="{{ route('dashboard') }}">
+                                        <i class="fas fa-tachometer-alt me-2 text-muted"></i>Dashboard
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider my-1"></li>
+                                <li>
+                                    <a class="dropdown-item py-2 text-danger" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <i class="fas fa-sign-out-alt me-2"></i>Cerrar sesión
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    @endguest
+                </ul>
+
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        {{-- Mensajes de alerta globales --}}
+    {{-- ALERTAS GLOBALES --}}
+    @if(session('success') || session('error'))
         <div class="container mt-3">
             @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <div class="alert alert-success alert-dismissible fade show py-2" role="alert">
                     <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif
             @if(session('error'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <div class="alert alert-danger alert-dismissible fade show py-2" role="alert">
                     <i class="fas fa-exclamation-circle me-2"></i>{{ session('error') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 </div>
             @endif
         </div>
+    @endif
 
-        <main>
-            @yield('content')
-        </main>
+    {{-- CONTENIDO --}}
+    <main>
+        @yield('content')
+    </main>
 
-    </div>
+</div>
 
-    <!-- Bootstrap 5 JS (necesario para dropdown, navbar toggler, etc.) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
