@@ -8,6 +8,7 @@ use App\Models\Booking;
 use App\Models\Review;
 use App\Models\Favorite;
 use App\Models\SearchHistory;
+use App\Models\Assessment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -67,10 +68,27 @@ class StudentController extends Controller
                 ];
             });
 
+        // NIVELES DE EVALUACIÓN - Obtener evaluaciones por categoría
+        $assessments = Assessment::where('student_id', $student->id)
+            ->select('subject', 'detected_level', 'created_at')
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->groupBy('subject')
+            ->map(function($assessmentsBySubject, $subject) {
+                $latestAssessment = $assessmentsBySubject->first();
+                return [
+                    'subject' => $subject,
+                    'level' => $latestAssessment->detected_level,
+                    'evaluated_at' => $latestAssessment->created_at,
+                    'evaluations_count' => $assessmentsBySubject->count()
+                ];
+            });
+
         return view('student.dashboard', compact(
             'nextClass',
             'pendingReviews',
-            'notifications'
+            'notifications',
+            'assessments'
         ));
     }
 

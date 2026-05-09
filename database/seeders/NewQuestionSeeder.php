@@ -1,0 +1,967 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use App\Models\Question;
+
+class NewQuestionSeeder extends Seeder
+{
+    public function run()
+    {
+        // Preguntas de Programación (20 preguntas)
+        $programmingQuestions = [
+            [
+                'question_text' => '¿Cuál es la complejidad temporal del algoritmo de búsqueda binaria en el peor caso?',
+                'option_a' => 'O(n)',
+                'option_b' => 'O(log n)',
+                'option_c' => 'O(n log n)',
+                'option_d' => 'O(1)',
+                'correct_option' => 'b',
+                'subject' => 'programación',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué patrón de diseño se utiliza para crear objetos sin especificar sus clases concretas?',
+                'option_a' => 'Singleton',
+                'option_b' => 'Factory',
+                'option_c' => 'Observer',
+                'option_d' => 'Decorator',
+                'correct_option' => 'b',
+                'subject' => 'programación',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál de las siguientes NO es una característica de la programación orientada a objetos?',
+                'option_a' => 'Herencia',
+                'option_b' => 'Polimorfismo',
+                'option_c' => 'Encapsulamiento',
+                'option_d' => 'Compilación',
+                'correct_option' => 'd',
+                'subject' => 'programación',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué estructura de datos sigue el principio LIFO (Last In, First Out)?',
+                'option_a' => 'Cola (Queue)',
+                'option_b' => 'Pila (Stack)',
+                'option_c' => 'Lista enlazada',
+                'option_d' => 'Árbol binario',
+                'correct_option' => 'b',
+                'subject' => 'programación',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el propósito principal de Git en el desarrollo de software?',
+                'option_a' => 'Compilar código',
+                'option_b' => 'Control de versiones',
+                'option_c' => 'Ejecutar pruebas',
+                'option_d' => 'Gestionar dependencias',
+                'correct_option' => 'b',
+                'subject' => 'programación',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué significa el acrónimo API en desarrollo web?',
+                'option_a' => 'Application Programming Interface',
+                'option_b' => 'Advanced Programming Integration',
+                'option_c' => 'Automated Process Implementation',
+                'option_d' => 'Application Process Interface',
+                'correct_option' => 'a',
+                'subject' => 'programación',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál de los siguientes lenguajes es tipado dinámicamente?',
+                'option_a' => 'Java',
+                'option_b' => 'C++',
+                'option_c' => 'Python',
+                'option_d' => 'TypeScript',
+                'correct_option' => 'c',
+                'subject' => 'programación',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué método HTTP se utiliza típicamente para actualizar datos existentes en un servidor?',
+                'option_a' => 'GET',
+                'option_b' => 'POST',
+                'option_c' => 'PUT',
+                'option_d' => 'DELETE',
+                'correct_option' => 'c',
+                'subject' => 'programación',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es la principal ventaja de usar microservicios?',
+                'option_a' => 'Mayor rendimiento',
+                'option_b' => 'Escalabilidad independiente',
+                'option_c' => 'Menor complejidad',
+                'option_d' => 'Desarrollo más rápido',
+                'correct_option' => 'b',
+                'subject' => 'programación',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué concepto se refiere a que una clase hija puede redefinir métodos de su clase padre?',
+                'option_a' => 'Herencia',
+                'option_b' => 'Encapsulamiento',
+                'option_c' => 'Polimorfismo',
+                'option_d' => 'Abstracción',
+                'correct_option' => 'c',
+                'subject' => 'programación',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el propósito principal de un índice en una base de datos?',
+                'option_a' => 'Aumentar la seguridad',
+                'option_b' => 'Mejorar el rendimiento de consultas',
+                'option_c' => 'Reducir el tamaño de la base de datos',
+                'option_d' => 'Simplificar el diseño',
+                'correct_option' => 'b',
+                'subject' => 'programación',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué patrón arquitectónico separa la lógica de negocio de la interfaz de usuario?',
+                'option_a' => 'MVC (Model-View-Controller)',
+                'option_b' => 'Singleton',
+                'option_c' => 'Observer',
+                'option_d' => 'Factory',
+                'correct_option' => 'a',
+                'subject' => 'programación',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es la principal diferencia entre SQL y NoSQL?',
+                'option_a' => 'SQL es más rápido',
+                'option_b' => 'NoSQL no usa tablas',
+                'option_c' => 'SQL es gratuito',
+                'option_d' => 'NoSQL solo para aplicaciones móviles',
+                'correct_option' => 'b',
+                'subject' => 'programación',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué significa "DRY" en programación?',
+                'option_a' => 'Don\'t Repeat Yourself',
+                'option_b' => 'Do Right Yesterday',
+                'option_c' => 'Data Ready Yesterday',
+                'option_d' => 'Debug Regular Yearly',
+                'correct_option' => 'a',
+                'subject' => 'programación',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el propósito de Docker en desarrollo de software?',
+                'option_a' => 'Escribir código',
+                'option_b' => 'Contener aplicaciones',
+                'option_c' => 'Diseñar interfaces',
+                'option_d' => 'Gestionar bases de datos',
+                'correct_option' => 'b',
+                'subject' => 'programación',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué tipo de prueba verifica que diferentes componentes funcionen juntos correctamente?',
+                'option_a' => 'Unit test',
+                'option_b' => 'Integration test',
+                'option_c' => 'Smoke test',
+                'option_d' => 'Regression test',
+                'correct_option' => 'b',
+                'subject' => 'programación',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es la principal ventaja de usar TypeScript sobre JavaScript?',
+                'option_a' => 'Mayor velocidad de ejecución',
+                'option_b' => 'Tipado estático',
+                'option_c' => 'Menor tamaño de archivo',
+                'option_d' => 'Mayor compatibilidad con navegadores',
+                'correct_option' => 'b',
+                'subject' => 'programación',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué concepto se refiere a ocultar los detalles internos de una clase?',
+                'option_a' => 'Herencia',
+                'option_b' => 'Polimorfismo',
+                'option_c' => 'Encapsulamiento',
+                'option_d' => 'Abstracción',
+                'correct_option' => 'c',
+                'subject' => 'programación',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el propósito principal de un framework de testing como Jest?',
+                'option_a' => 'Compilar código',
+                'option_b' => 'Automatizar pruebas',
+                'option_c' => 'Diseñar interfaces',
+                'option_d' => 'Gestionar bases de datos',
+                'correct_option' => 'b',
+                'subject' => 'programación',
+                'type' => 'multiple_choice'
+            ]
+        ];
+
+        // Preguntas de Diseño (20 preguntas)
+        $designQuestions = [
+            [
+                'question_text' => '¿Cuál es la regla básica de la jerarquía visual en diseño?',
+                'option_a' => 'Usar muchos colores',
+                'option_b' => 'Elementos más grandes son más importantes',
+                'option_c' => 'Texto siempre en negrita',
+                'option_d' => 'Espaciado mínimo',
+                'correct_option' => 'b',
+                'subject' => 'diseño',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué espacio de color se usa comúnmente en diseño digital para pantallas?',
+                'option_a' => 'CMYK',
+                'option_b' => 'RGB',
+                'option_c' => 'Pantone',
+                'option_d' => 'Grayscale',
+                'correct_option' => 'b',
+                'subject' => 'diseño',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es la proporción áurea aproximada?',
+                'option_a' => '1:1',
+                'option_b' => '1:1.414',
+                'option_c' => '1:1.618',
+                'option_d' => '1:2',
+                'correct_option' => 'c',
+                'subject' => 'diseño',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué principio de diseño se refiere a la cercanía de elementos relacionados?',
+                'option_a' => 'Contraste',
+                'option_b' => 'Proximidad',
+                'option_c' => 'Alineación',
+                'option_d' => 'Repetición',
+                'correct_option' => 'b',
+                'subject' => 'diseño',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el propósito principal del "white space" en diseño?',
+                'option_a' => 'Ahorrar tinta',
+                'option_b' => 'Mejorar legibilidad y organización',
+                'option_c' => 'Añadir color',
+                'option_d' => 'Reducir tamaño',
+                'correct_option' => 'b',
+                'subject' => 'diseño',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué formato de imagen es mejor para logotipos con transparencia?',
+                'option_a' => 'JPEG',
+                'option_b' => 'PNG',
+                'option_c' => 'GIF',
+                'option_d' => 'BMP',
+                'correct_option' => 'b',
+                'subject' => 'diseño',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es la resolución estándar para diseño web "Retina"?',
+                'option_a' => '72 DPI',
+                'option_b' => '150 DPI',
+                'option_c' => '300 DPI',
+                'option_d' => '144 DPI',
+                'correct_option' => 'c',
+                'subject' => 'diseño',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué principio de diseño crea armonía visual mediante elementos similares?',
+                'option_a' => 'Contraste',
+                'option_b' => 'Repetición',
+                'option_c' => 'Movimiento',
+                'option_d' => 'Énfasis',
+                'correct_option' => 'b',
+                'subject' => 'diseño',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el sistema de tipografía más común en diseño web?',
+                'option_a' => 'Serif',
+                'option_b' => 'Sans-serif',
+                'option_c' => 'Monospace',
+                'option_d' => 'Cursive',
+                'correct_option' => 'b',
+                'subject' => 'diseño',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué herramienta de diseño es principalmente para diseño vectorial?',
+                'option_a' => 'Photoshop',
+                'option_b' => 'Illustrator',
+                'option_c' => 'Lightroom',
+                'option_d' => 'Premiere Pro',
+                'correct_option' => 'b',
+                'subject' => 'diseño',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el propósito de una "mood board" en diseño?',
+                'option_a' => 'Organizar archivos',
+                'option_b' => 'Establecer dirección visual',
+                'option_c' => 'Presentar cliente final',
+                'option_d' => 'Crear código',
+                'correct_option' => 'b',
+                'subject' => 'diseño',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué formato de imagen es mejor para fotografías en web?',
+                'option_a' => 'PNG',
+                'option_b' => 'SVG',
+                'option_c' => 'JPEG',
+                'option_d' => 'GIF',
+                'correct_option' => 'c',
+                'subject' => 'diseño',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es la regla de los tercios en composición?',
+                'option_a' => 'Dividir la imagen en 9 partes iguales',
+                'option_b' => 'Usar tres colores principales',
+                'option_c' => 'Crear tres capas',
+                'option_d' => 'Alinear tres elementos',
+                'correct_option' => 'a',
+                'subject' => 'diseño',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué significa "UI" en diseño de productos digitales?',
+                'option_a' => 'User Interface',
+                'option_b' => 'User Interaction',
+                'option_c' => 'Universal Integration',
+                'option_d' => 'Unit Implementation',
+                'correct_option' => 'a',
+                'subject' => 'diseño',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el propósito principal del "prototipado"?',
+                'option_a' => 'Crear versión final',
+                'option_b' => 'Probar ideas antes del desarrollo',
+                'option_c' => 'Documentar proceso',
+                'option_d' => 'Optimizar rendimiento',
+                'correct_option' => 'b',
+                'subject' => 'diseño',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué principio de diseño guía el ojo del usuario a través del contenido?',
+                'option_a' => 'Contraste',
+                'option_b' => 'Movimiento',
+                'option_c' => 'Balance',
+                'option_d' => 'Color',
+                'correct_option' => 'b',
+                'subject' => 'diseño',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el formato ideal para iconos escalables?',
+                'option_a' => 'PNG',
+                'option_b' => 'JPEG',
+                'option_c' => 'SVG',
+                'option_d' => 'GIF',
+                'correct_option' => 'c',
+                'subject' => 'diseño',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué significa "UX" en diseño de productos?',
+                'option_a' => 'User Experience',
+                'option_b' => 'User Extension',
+                'option_c' => 'Universal Design',
+                'option_d' => 'Unit Execution',
+                'correct_option' => 'a',
+                'subject' => 'diseño',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el propósito de un "style guide" en diseño?',
+                'option_a' => 'Limitar creatividad',
+                'option_b' => 'Mantener consistencia visual',
+                'option_c' => 'Reducir costos',
+                'option_d' => 'Acelerar desarrollo',
+                'correct_option' => 'b',
+                'subject' => 'diseño',
+                'type' => 'multiple_choice'
+            ]
+        ];
+
+        // Preguntas de Idiomas (20 preguntas)
+        $languageQuestions = [
+            [
+                'question_text' => '¿Cuál es el tiempo verbal correcto en: "Ayer ____ al cine"?',
+                'option_a' => 'voy',
+                'option_b' => 'fui',
+                'option_c' => 'iré',
+                'option_d' => 'voy',
+                'correct_option' => 'b',
+                'subject' => 'idiomas',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué artículo usarías para "agua" en español?',
+                'option_a' => 'El',
+                'option_b' => 'La',
+                'option_c' => 'Los',
+                'option_d' => 'Las',
+                'correct_option' => 'b',
+                'subject' => 'idiomas',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el plural de "luz"?',
+                'option_a' => 'Luces',
+                'option_b' => 'Luzes',
+                'option_c' => 'Luz',
+                'option_d' => 'Luceses',
+                'correct_option' => 'a',
+                'subject' => 'idiomas',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué significa la expresión "estar en las nubes"?',
+                'option_a' => 'Estar enojado',
+                'option_b' => 'Estar distraído/pensando',
+                'option_c' => 'Estar feliz',
+                'option_d' => 'Estar triste',
+                'correct_option' => 'b',
+                'subject' => 'idiomas',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el sinónimo de "pronto"?',
+                'option_a' => 'Tarde',
+                'option_b' => 'Nunca',
+                'option_c' => 'Rápido',
+                'option_d' => 'Lento',
+                'correct_option' => 'c',
+                'subject' => 'idiomas',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué tiempo verbal es "habrá cantado"?',
+                'option_a' => 'Presente',
+                'option_b' => 'Pretérito',
+                'option_c' => 'Futuro perfecto',
+                'option_d' => 'Condicional',
+                'correct_option' => 'c',
+                'subject' => 'idiomas',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el antónimo de "subir"?',
+                'option_a' => 'Entrar',
+                'option_b' => 'Bajar',
+                'option_c' => 'Saludar',
+                'option_d' => 'Correr',
+                'correct_option' => 'b',
+                'subject' => 'idiomas',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué significa "break a leg" en inglés?',
+                'option_a' => 'Descansar',
+                'option_b' => 'Romper una pierna',
+                'option_c' => 'Tomar un descanso',
+                'option_d' => 'Correr rápido',
+                'correct_option' => 'c',
+                'subject' => 'idiomas',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es la forma correcta del subjuntivo: "Espero que ____ bien"?',
+                'option_a' => 'estás',
+                'option_b' => 'estés',
+                'option_c' => 'está',
+                'option_d' => 'estan',
+                'correct_option' => 'b',
+                'subject' => 'idiomas',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué significa "once upon a time"?',
+                'option_a' => 'Al final',
+                'option_b' => 'A veces',
+                'option_c' => 'Había una vez',
+                'option_d' => 'Inmediatamente',
+                'correct_option' => 'c',
+                'subject' => 'idiomas',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el género de "la mesa"?',
+                'option_a' => 'Masculino',
+                'option_b' => 'Femenino',
+                'option_c' => 'Neutro',
+                'option_d' => 'Ambiguo',
+                'correct_option' => 'b',
+                'subject' => 'idiomas',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué significa "piece of cake" en inglés coloquial?',
+                'option_a' => 'Algo difícil',
+                'option_b' => 'Algo fácil',
+                'option_c' => 'Algo caro',
+                'option_d' => 'Algo delicioso',
+                'correct_option' => 'b',
+                'subject' => 'idiomas',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el comparativo de "bueno"?',
+                'option_a' => 'Buenísimo',
+                'option_b' => 'Más bueno',
+                'option_c' => 'Mejor',
+                'option_d' => 'Buenoer',
+                'correct_option' => 'c',
+                'subject' => 'idiomas',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué significa "raining cats and dogs"?',
+                'option_a' => 'Lloviendo suavemente',
+                'option_b' => 'Lloviendo intensamente',
+                'option_c' => 'Haciendo frío',
+                'option_d' => 'Nublado',
+                'correct_option' => 'b',
+                'subject' => 'idiomas',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el superlativo de "grande"?',
+                'option_a' => 'Grandísimo',
+                'option_b' => 'Más grande',
+                'option_c' => 'El más grande',
+                'option_d' => 'Grandoso',
+                'correct_option' => 'c',
+                'subject' => 'idiomas',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué significa "hit the books"?',
+                'option_a' => 'Leer/estudiar',
+                'option_b' => 'Comprar libros',
+                'option_c' => 'Escribir libros',
+                'option_d' => 'Tirar libros',
+                'correct_option' => 'a',
+                'subject' => 'idiomas',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el tiempo verbal en "mañana estudiaré"?',
+                'option_a' => 'Presente',
+                'option_b' => 'Pretérito',
+                'option_c' => 'Futuro',
+                'option_d' => 'Condicional',
+                'correct_option' => 'c',
+                'subject' => 'idiomas',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué significa "under the weather"?',
+                'option_a' => 'Estar enfermo',
+                'option_b' => 'Estar feliz',
+                'option_c' => 'Estar enojado',
+                'option_d' => 'Estar confundido',
+                'correct_option' => 'a',
+                'subject' => 'idiomas',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el sinónimo de "comenzar"?',
+                'option_a' => 'Terminar',
+                'option_b' => 'Iniciar',
+                'option_c' => 'Pausar',
+                'option_d' => 'Continuar',
+                'correct_option' => 'b',
+                'subject' => 'idiomas',
+                'type' => 'multiple_choice'
+            ]
+        ];
+
+        // Preguntas de Música (20 preguntas)
+        $musicQuestions = [
+            [
+                'question_text' => '¿Cuántas líneas tiene generalmente un pentagrama?',
+                'option_a' => '3',
+                'option_b' => '4',
+                'option_c' => '5',
+                'option_d' => '6',
+                'correct_option' => 'c',
+                'subject' => 'música',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué instrumento pertenece a la familia del viento madera?',
+                'option_a' => 'Trompeta',
+                'option_b' => 'Clarinete',
+                'option_c' => 'Trombón',
+                'option_d' => 'Tuba',
+                'correct_option' => 'b',
+                'subject' => 'música',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el tempo "moderato"?',
+                'option_a' => 'Muy lento',
+                'option_b' => 'Lento',
+                'option_c' => 'Moderado',
+                'option_d' => 'Rápido',
+                'correct_option' => 'c',
+                'subject' => 'música',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué significa "piano" en notación musical?',
+                'option_a' => 'Tocar fuerte',
+                'option_b' => 'Tocar suave',
+                'option_c' => 'Tocar rápido',
+                'option_d' => 'Tocar lento',
+                'correct_option' => 'b',
+                'subject' => 'música',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el acorde mayor básico ( tríada)?',
+                'option_a' => 'Tónica - Segunda - Tercera',
+                'option_b' => 'Tónica - Tercera mayor - Quinta',
+                'option_c' => 'Segunda - Cuarta - Sexta',
+                'option_d' => 'Tónica - Cuarta - Quinta',
+                'correct_option' => 'b',
+                'subject' => 'música',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué instrumento es de percusión de afinación definida?',
+                'option_a' => 'Bombo',
+                'option_b' => 'Platillos',
+                'option_c' => 'Xilófono',
+                'option_d' => 'Pandereta',
+                'correct_option' => 'c',
+                'subject' => 'música',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es la firma de tiempo 4/4?',
+                'option_a' => 'Cuatro negras por compás',
+                'option_b' => 'Tres negras por compás',
+                'option_c' => 'Seis corcheas por compás',
+                'option_d' => 'Dos blancas por compás',
+                'correct_option' => 'a',
+                'subject' => 'música',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué instrumento tiene cuerdas frotadas?',
+                'option_a' => 'Guitarra',
+                'option_b' => 'Violín',
+                'option_c' => 'Piano',
+                'option_d' => 'Arpa',
+                'correct_option' => 'b',
+                'subject' => 'música',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué significa "staccato"?',
+                'option_a' => 'Notas conectadas',
+                'option_b' => 'Notas cortas y separadas',
+                'option_c' => 'Notas largas',
+                'option_d' => 'Notas suaves',
+                'correct_option' => 'b',
+                'subject' => 'música',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el instrumento principal en una orquesta sinfónica?',
+                'option_a' => 'Guitarra',
+                'option_b' => 'Piano',
+                'option_c' => 'Violín',
+                'option_d' => 'Flauta',
+                'correct_option' => 'c',
+                'subject' => 'música',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué familia de instrumentos incluye el violonchelo?',
+                'option_a' => 'Viento madera',
+                'option_b' => 'Viento metal',
+                'option_c' => 'Cuerda',
+                'option_d' => 'Percusión',
+                'correct_option' => 'c',
+                'subject' => 'música',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué significa "crescendo"?',
+                'option_a' => 'Hacerse más suave',
+                'option_b' => 'Hacerse más fuerte',
+                'option_c' => 'Hacerse más rápido',
+                'option_d' => 'Hacerse más lento',
+                'correct_option' => 'b',
+                'subject' => 'música',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el intervalo entre Do y Sol?',
+                'option_a' => 'Tercera',
+                'option_b' => 'Cuarta',
+                'option_c' => 'Quinta',
+                'option_d' => 'Sexta',
+                'correct_option' => 'c',
+                'subject' => 'música',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué instrumento es de teclado?',
+                'option_a' => 'Saxofón',
+                'option_b' => 'Trompeta',
+                'option_c' => 'Órgano',
+                'option_d' => 'Violín',
+                'correct_option' => 'c',
+                'subject' => 'música',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué significa "allegro" en tempo?',
+                'option_a' => 'Lento',
+                'option_b' => 'Moderado',
+                'option_c' => 'Rápido y alegre',
+                'option_d' => 'Muy rápido',
+                'correct_option' => 'c',
+                'subject' => 'música',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es la escala mayor natural?',
+                'option_a' => 'Do-Re-Mi-Fa-Sol-La-Si',
+                'option_b' => 'Do-Reb-Mi-Fa-Solb-La-Sib',
+                'option_c' => 'Do-Re-Mib-Fa-Sol-Lab-Sib',
+                'option_d' => 'Do-Re-Mi-Fa#-Sol-La-Si',
+                'correct_option' => 'a',
+                'subject' => 'música',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué instrumento pertenece a la familia del viento metal?',
+                'option_a' => 'Flauta',
+                'option_b' => 'Oboe',
+                'option_c' => 'Trompeta',
+                'option_d' => 'Fagot',
+                'correct_option' => 'c',
+                'subject' => 'música',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué significa "pizzicato" en música de cuerda?',
+                'option_a' => 'Tocar con arco',
+                'option_b' => 'Tocar con los dedos',
+                'option_c' => 'Tocar fuerte',
+                'option_d' => 'Tocar suave',
+                'correct_option' => 'b',
+                'subject' => 'música',
+                'type' => 'multiple_choice'
+            ]
+        ];
+
+        // Preguntas de Marketing (20 preguntas)
+        $marketingQuestions = [
+            [
+                'question_text' => '¿Qué significa "SEO" en marketing digital?',
+                'option_a' => 'Search Engine Optimization',
+                'option_b' => 'Social Engagement Optimization',
+                'option_c' => 'Sales Enhancement Operation',
+                'option_d' => 'Site Effectiveness Overview',
+                'correct_option' => 'a',
+                'subject' => 'marketing',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el propósito principal del "call to action"?',
+                'option_a' => 'Informar',
+                'option_b' => 'Entretener',
+                'option_c' => 'Generar una respuesta específica',
+                'option_d' => 'Decorar la página',
+                'correct_option' => 'c',
+                'subject' => 'marketing',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué es el "funnel" de marketing?',
+                'option_a' => 'Un tipo de publicidad',
+                'option_b' => 'El camino del cliente hacia la compra',
+                'option_c' => 'Una herramienta de email',
+                'option_d' => 'Un presupuesto',
+                'correct_option' => 'b',
+                'subject' => 'marketing',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué significa "CTR" en marketing digital?',
+                'option_a' => 'Click Through Rate',
+                'option_b' => 'Customer Trust Ranking',
+                'option_c' => 'Conversion Time Ratio',
+                'option_d' => 'Content Target Reach',
+                'correct_option' => 'a',
+                'subject' => 'marketing',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el "target audience"?',
+                'option_a' => 'Todos los usuarios',
+                'option_b' => 'El grupo demográfico específico para un producto',
+                'option_c' => 'Los competidores',
+                'option_d' => 'Los empleados',
+                'correct_option' => 'b',
+                'subject' => 'marketing',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué es el "branding"?',
+                'option_a' => 'Crear y mantener la imagen de marca',
+                'option_b' => 'Vender productos',
+                'option_c' => 'Hacer publicidad',
+                'option_d' => 'Reducir precios',
+                'correct_option' => 'a',
+                'subject' => 'marketing',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el propósito principal de "A/B testing"?',
+                'option_a' => 'Comparar dos versiones para ver cuál funciona mejor',
+                'option_b' => 'Probar dos productos diferentes',
+                'option_c' => 'Entrenar al equipo',
+                'option_d' => 'Crear contenido',
+                'correct_option' => 'a',
+                'subject' => 'marketing',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué significa "ROI" en marketing?',
+                'option_a' => 'Return on Investment',
+                'option_b' => 'Rate of Interest',
+                'option_c' => 'Reach of Impact',
+                'option_d' => 'Revenue Optimization Index',
+                'correct_option' => 'a',
+                'subject' => 'marketing',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué es el "lead generation"?',
+                'option_a' => 'Vender directamente',
+                'option_b' => 'Capturar información de clientes potenciales',
+                'option_c' => 'Hacer facturación',
+                'option_d' => 'Crear productos',
+                'correct_option' => 'b',
+                'subject' => 'marketing',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el "engagement" en redes sociales?',
+                'option_a' => 'Número de seguidores',
+                'option_b' => 'Interacción y participación del usuario',
+                'option_c' => 'Publicidad pagada',
+                'option_d' => 'Número de publicaciones',
+                'correct_option' => 'b',
+                'subject' => 'marketing',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué significa "KPI" en marketing?',
+                'option_a' => 'Key Performance Indicator',
+                'option_b' => 'Key Product Information',
+                'option_c' => 'Knowledge Process Integration',
+                'option_d' => 'Keeping Performance Index',
+                'correct_option' => 'a',
+                'subject' => 'marketing',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el "content marketing"?',
+                'option_a' => 'Crear y distribuir contenido valioso',
+                'option_b' => 'Vender contenido',
+                'option_c' => 'Copiar contenido',
+                'option_d' => 'Eliminar contenido',
+                'correct_option' => 'a',
+                'subject' => 'marketing',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué es el "customer journey"?',
+                'option_a' => 'El proceso completo del cliente con la marca',
+                'option_b' => 'Una sola compra',
+                'option_c' => 'Una devolución',
+                'option_d' => 'Una queja',
+                'correct_option' => 'a',
+                'subject' => 'marketing',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el propósito principal del "email marketing"?',
+                'option_a' => 'Enviar spam',
+                'option_b' => 'Comunicar directamente con clientes',
+                'option_c' => 'Crear sitios web',
+                'option_d' => 'Diseñar logos',
+                'correct_option' => 'b',
+                'subject' => 'marketing',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué significa "CPC" en publicidad online?',
+                'option_a' => 'Cost Per Click',
+                'option_b' => 'Clicks Per Customer',
+                'option_c' => 'Cost Per Conversion',
+                'option_d' => 'Customer Per Click',
+                'correct_option' => 'a',
+                'subject' => 'marketing',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué es el "market research"?',
+                'option_a' => 'Vender en el mercado',
+                'option_b' => 'Investigar y analizar el mercado',
+                'option_c' => 'Crear mercado',
+                'option_d' => 'Competir en el mercado',
+                'correct_option' => 'b',
+                'subject' => 'marketing',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Cuál es el "conversion rate"?',
+                'option_a' => 'Porcentaje de usuarios que realizan la acción deseada',
+                'option_b' => 'Número total de visitantes',
+                'option_c' => 'Costo total de campaña',
+                'option_d' => 'Tiempo en el sitio',
+                'correct_option' => 'a',
+                'subject' => 'marketing',
+                'type' => 'multiple_choice'
+            ],
+            [
+                'question_text' => '¿Qué es el "influencer marketing"?',
+                'option_a' => 'Usar personas influyentes para promocionar',
+                'option_b' => 'Crear influencers',
+                'option_c' => 'Vender a influencers',
+                'option_d' => 'Copiar a influencers',
+                'correct_option' => 'a',
+                'subject' => 'marketing',
+                'type' => 'multiple_choice'
+            ]
+        ];
+
+        // Insertar todas las preguntas
+        Question::insert(array_merge($programmingQuestions, $designQuestions, $languageQuestions, $marketingQuestions, $musicQuestions));
+        
+        $this->command->info('Se han creado 100 preguntas (20 por cada categoría: programación, diseño, idiomas, música, marketing)');
+    }
+}

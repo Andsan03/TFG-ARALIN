@@ -24,6 +24,52 @@ class AssessmentController extends Controller
             return $query->where('subject', $category);
         })->orderBy('id')->get();
         
+        // Seleccionar solo 10 preguntas aleatoriamente de las disponibles
+        $questions = $questions->random(10);
+        
+        // Mezclar las 10 preguntas seleccionadas
+        $questions = $questions->shuffle();
+        
+        // Preparar opciones mezcladas para cada pregunta
+        $questionsWithShuffledOptions = $questions->map(function ($question) {
+            if ($question->type === 'multiple_choice') {
+                // Obtener opciones originales
+                $options = [
+                    'a' => $question->option_a,
+                    'b' => $question->option_b,
+                    'c' => $question->option_c,
+                    'd' => $question->option_d
+                ];
+                
+                // Usar semilla fija basada en ID de pregunta para consistencia
+                $seed = crc32($question->id . $question->question_text);
+                srand($seed);
+                
+                // Mezclar opciones pero mantener el mapeo
+                $shuffledKeys = ['a', 'b', 'c', 'd'];
+                shuffle($shuffledKeys);
+                
+                $shuffledOptions = [];
+                $keyMapping = [];
+                
+                foreach ($shuffledKeys as $index => $originalKey) {
+                    $displayKey = ['a', 'b', 'c', 'd'][$index];
+                    $shuffledOptions[$displayKey] = $options[$originalKey];
+                    
+                    // Mapeo: lo que el usuario ve (a,b,c,d) -> lo que realmente es (a,b,c,d)
+                    if ($originalKey === $question->correct_option) {
+                        $keyMapping[$displayKey] = $question->correct_option;
+                    }
+                }
+                
+                // Guardar opciones mezcladas y mapeo en la pregunta
+                $question->shuffled_options = $shuffledOptions;
+                $question->option_mapping = $keyMapping;
+            }
+            
+            return $question;
+        });
+        
         return view('assessment.create', compact('questions', 'category'));
     }
 
@@ -42,14 +88,63 @@ class AssessmentController extends Controller
             $answers = $request->input('answers');
             $category = $request->input('category', 'general');
             
+            // Si las opciones están mezcladas, necesitamos mapear las respuestas
+            $processedAnswers = [];
+            foreach ($answers as $questionId => $userAnswer) {
+                $question = \App\Models\Question::find($questionId);
+                
+                if ($question && $question->type === 'multiple_choice') {
+                    // Obtener las opciones mezcladas para esta pregunta
+                    $options = [
+                        'a' => $question->option_a,
+                        'b' => $question->option_b,
+                        'c' => $question->option_c,
+                        'd' => $question->option_d
+                    ];
+                    
+                    // Usar la misma semilla que en el create para consistencia
+                    $seed = crc32($question->id . $question->question_text);
+                    srand($seed);
+                    
+                    // Mezclar opciones de la misma manera que en el create
+                    $shuffledKeys = ['a', 'b', 'c', 'd'];
+                    shuffle($shuffledKeys);
+                    
+                    $shuffledOptions = [];
+                    foreach ($shuffledKeys as $index => $originalKey) {
+                        $displayKey = ['a', 'b', 'c', 'd'][$index];
+                        $shuffledOptions[$displayKey] = $options[$originalKey];
+                    }
+                    
+                    // Encontrar qué opción original corresponde a la respuesta del usuario
+                    $originalOption = null;
+                    foreach ($shuffledOptions as $displayKey => $optionText) {
+                        if ($displayKey === $userAnswer) {
+                            // Encontrar la clave original que corresponde a este texto
+                            foreach ($options as $origKey => $origText) {
+                                if ($origText === $optionText) {
+                                    $originalOption = $origKey;
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    
+                    $processedAnswers[$questionId] = $originalOption ?: $userAnswer;
+                } else {
+                    $processedAnswers[$questionId] = $userAnswer;
+                }
+            }
+            
             // Usar el servicio de OpenAI con retry y cache
-            $result = $this->openAIService->evaluateAnswers($answers, $category);
+            $result = $this->openAIService->evaluateAnswers($processedAnswers, $category);
 
             // Guardar la evaluación en la base de datos
             $assessment = Assessment::create([
                 'student_id' => Auth::id(),
                 'subject' => $category,
-                'answers' => $answers,
+                'answers' => $processedAnswers,
                 'detected_level' => $result['level'],
                 'ai_recommendation' => $result['recommendation']
             ]);

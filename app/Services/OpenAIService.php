@@ -192,47 +192,61 @@ class OpenAIService
     }
 
     /**
-     * Evaluar localmente (fallback mejorado)
+     * Evaluar localmente (fallback mejorado para preguntas tipo test)
      */
     public function evaluateLocally(array $answers): array
     {
         Log::channel('assessment')->info('Usando evaluación local como fallback');
         
-        $score = 0;
+        $correctAnswers = 0;
         $totalQuestions = count($answers);
+        $detailedResults = [];
         
-        foreach ($answers as $answer) {
-            if (is_array($answer)) {
-                $answer = $answer['option'] ?? '';
+        foreach ($answers as $questionId => $selectedOption) {
+            // Obtener la pregunta correcta desde la base de datos
+            $question = \App\Models\Question::find($questionId);
+            
+            $isCorrect = false;
+            if ($question && $question->correct_option === $selectedOption) {
+                $correctAnswers++;
+                $isCorrect = true;
             }
             
-            // Puntuación basada en la calidad y longitud de la respuesta
-            if (strlen($answer) > 100) {
-                $score += 3; // Respuesta muy detallada
-            } elseif (strlen($answer) > 50) {
-                $score += 2; // Respuesta detallada
-            } elseif (strlen($answer) > 10) {
-                $score += 1; // Respuesta básica
-            }
+            // Guardar información detallada de cada respuesta
+            $detailedResults[$questionId] = [
+                'question_text' => $question->question_text ?? 'Pregunta no encontrada',
+                'user_answer' => $selectedOption,
+                'user_answer_text' => $question ? $question->{'option_' . $selectedOption} : 'Opción no encontrada',
+                'is_correct' => $isCorrect,
+                'correct_option' => $question->correct_option ?? null,
+                'correct_answer_text' => $question ? $question->{'option_' . ($question->correct_option ?? '')} : 'Opción no encontrada'
+            ];
         }
         
-        // Determinar nivel basado en el puntaje
-        $percentage = ($score / ($totalQuestions * 3)) * 100;
+        // Calcular porcentaje de respuestas correctas
+        $percentage = ($correctAnswers / $totalQuestions) * 100;
         
+        // Determinar nivel basado en el porcentaje
         if ($percentage >= 80) {
             $level = 'avanzado';
-            $recommendation = 'Excelente nivel. Demuestras un conocimiento profundo. Recomendamos enfocarte en temas avanzados como arquitectura de software, patrones de diseño, optimización de rendimiento y contribuir a proyectos open source.';
+            $recommendation = 'Excelente nivel. Has respondido correctamente la mayoría de las preguntas. Demuestras un conocimiento profundo del tema. Recomendamos enfocarte en conceptos avanzados y aplicaciones prácticas.';
         } elseif ($percentage >= 50) {
             $level = 'intermedio';
-            $recommendation = 'Buen nivel intermedio. Tienes sólidos fundamentos. Sigue practicando con proyectos más complejos, aprende sobre bases de datos, APIs, framework modernos y buenas prácticas de desarrollo.';
+            $recommendation = 'Buen nivel intermedio. Tienes sólidos fundamentos pero hay espacio para mejorar. Sigue practicando con conceptos más complejos y aplica tus conocimientos en proyectos reales.';
         } else {
             $level = 'principiante';
-            $recommendation = 'Estás comenzando tu camino. Enfócate en los fundamentos: variables, condicionales, bucles, funciones y conceptos básicos. Practica con ejercicios simples y proyectos pequeños para construir confianza.';
+            $recommendation = 'Estás comenzando tu camino. Es normal estar en este nivel. Enfócate en los fundamentos básicos, practica regularmente y no dudes en buscar recursos adicionales para reforzar tu aprendizaje.';
         }
+        
+        Log::channel('assessment')->info("Evaluación local completada: {$correctAnswers}/{$totalQuestions} correctas ({$percentage}%) - Nivel: {$level}");
         
         return [
             'level' => $level,
-            'recommendation' => $recommendation
+            'recommendation' => $recommendation,
+            'score' => $correctAnswers,
+            'total' => $totalQuestions,
+            'percentage' => round($percentage, 1),
+            'detailed_results' => $detailedResults
         ];
     }
 }

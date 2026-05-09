@@ -63,7 +63,9 @@ class TeacherController extends Controller
     {
         $teacher = Auth::user();
         $classes = Classes::where('teacher_id', $teacher->id)
-            ->with('bookings')
+            ->withCount(['bookings' => function($query) {
+                $query->where('status', '!=', 'rechazada');
+            }])
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
@@ -87,14 +89,14 @@ class TeacherController extends Controller
         $validationRules = [
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:2000',
-            'category' => 'required|string|max:100',
-            'modality' => 'required|in:online,presential,mixta',
-            'price_per_hour' => 'required|numeric|min:0|max:999.99',
-            'level' => 'required|in:principiante,intermedio,avanzado,experto,todos',
+            'category' => 'required|string|in:matematicas,ciencias,idiomas,arte,musica,deporte,programacion,negocios,otros',
+            'modality' => 'required|in:online,presencial,ambas',
+            'price_per_hour' => 'required|numeric|min:1|max:999',
+            'level' => 'required|in:beginner,intermediate,advanced,all',
         ];
         
-        // Si es presencial o mixta, requerir ubicación
-        if ($request->modality === 'presential' || $request->modality === 'mixta') {
+        // Si es presencial o ambas, requerir ubicación
+        if ($request->modality === 'presencial' || $request->modality === 'ambas') {
             $validationRules['location'] = 'required|string|max:255';
         }
         
@@ -117,11 +119,11 @@ class TeacherController extends Controller
     }
 
     /**
-     * Editar clase (RF-11)
+     * Mostrar formulario para editar clase
      */
-    public function editClass(Classes $class)
+    public function edit(Classes $class)
     {
-        // Verificar que la clase pertenezca al profesor
+        // Verificar que la clase pertenezca al profesor autenticado
         if ($class->teacher_id !== Auth::id()) {
             abort(403, 'No tienes permiso para editar esta clase.');
         }
@@ -130,27 +132,26 @@ class TeacherController extends Controller
     }
 
     /**
-     * Actualizar clase (RF-11)
+     * Actualizar clase existente
      */
-    public function updateClass(Request $request, Classes $class)
+    public function update(Request $request, Classes $class)
     {
-        // Verificar que la clase pertenezca al profesor
+        // Verificar que la clase pertenezca al profesor autenticado
         if ($class->teacher_id !== Auth::id()) {
             abort(403, 'No tienes permiso para editar esta clase.');
         }
 
-        $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:2000',
-            'category' => 'required|string|max:100',
-            'modality' => 'required|in:online,presential,mixed',
-            'price_per_hour' => 'required|numeric|min:0|max:999.99',
-            'level' => 'required|in:principiante,intermedio,avanzado,experto,todos',
+            'category' => 'required|string|in:matematicas,ciencias,idiomas,arte,musica,deporte,programacion,negocios,otros',
+            'level' => 'required|string|in:beginner,intermediate,advanced,all',
+            'price_per_hour' => 'required|numeric|min:1|max:999',
+            'modality' => 'required|string|in:online,presencial,ambas',
+            'location' => 'required_if:modality,presencial,ambas|string|max:255'
         ]);
 
-        $class->update($request->only([
-            'title', 'description', 'category', 'modality', 'price_per_hour', 'level'
-        ]));
+        $class->update($validated);
 
         return redirect()->route('teacher.classes')
             ->with('success', 'Clase actualizada correctamente.');
