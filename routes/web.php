@@ -57,8 +57,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/classes', [TeacherController::class, 'classes'])->name('classes');
         Route::get('/classes/create', [TeacherController::class, 'createClass'])->name('classes.create');
         Route::post('/classes', [TeacherController::class, 'storeClass'])->name('classes.store');
-        Route::get('/classes/{class}/edit', [TeacherController::class, 'editClass'])->name('classes.edit');
-        Route::put('/classes/{class}', [TeacherController::class, 'updateClass'])->name('classes.update');
+        Route::get('/classes/{class}/edit', [TeacherController::class, 'edit'])->name('classes.edit');
+        Route::put('/classes/{class}', [TeacherController::class, 'update'])->name('classes.update');
         Route::post('/classes/{class}/toggle', [TeacherController::class, 'toggleClass'])->name('classes.toggle');
         Route::delete('/classes/{class}', [TeacherController::class, 'destroyClass'])->name('classes.destroy');
         Route::get('/bookings', [TeacherController::class, 'bookings'])->name('bookings');
