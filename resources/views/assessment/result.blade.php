@@ -104,14 +104,14 @@
                             $isCorrect = $q && $q->correct_option === $userAnswer;
                         @endphp
                         <div class="d-flex gap-3 mb-3 pb-3 {{ !$loop->last ? 'border-bottom' : '' }}">
-                            <div class="flex-shrink-0 mt-1">
+                            <div class=" mt-1">
                                 @if($isCorrect)
                                     <i class="fas fa-check-circle text-success"></i>
                                 @else
                                     <i class="fas fa-times-circle text-danger"></i>
                                 @endif
                             </div>
-                            <div class="flex-grow-1">
+                            <div>
                                 <div class="small fw-semibold mb-1">
                                     Pregunta {{ $loop->index + 1 }}
                                     @if($q): {{ Str::limit($q->question_text, 60) }} @endif

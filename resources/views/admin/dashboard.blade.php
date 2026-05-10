@@ -1,157 +1,178 @@
 @extends('layouts.app')
 
-@section('title', 'Panel de Administración')
-
 @section('content')
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-12">
-            <h1 class="mb-4">
-                <i class="fas fa-shield-alt text-primary me-2"></i>
-                Panel de Administración
-            </h1>
+
+<div class="container py-4">
+
+    {{-- CABECERA --}}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">Panel de administración</h3>
+            <p class="text-muted mb-0">Visión general de la plataforma</p>
         </div>
     </div>
 
-    <!-- Estadísticas -->
-    <div class="row mb-4">
-        <div class="col-md-3 mb-3">
-            <div class="card bg-primary text-white">
-                <div class="card-body">
-                    <h5 class="card-title">Total Usuarios</h5>
-                    <h3 class="mb-0">{{ $stats['total_users'] }}</h3>
+    {{-- STATS --}}
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="dashboard-stat border rounded-3 p-3 bg-white text-center">
+                <div class="stat-icon bg-primary bg-opacity-10 text-primary mx-auto mb-2">
+                    <i class="fas fa-users"></i>
                 </div>
+                <div class="fw-bold fs-4">{{ $stats['total_users'] }}</div>
+                <div class="text-muted small">Usuarios</div>
             </div>
         </div>
-        <div class="col-md-3 mb-3">
-            <div class="card bg-success text-white">
-                <div class="card-body">
-                    <h5 class="card-title">Total Clases</h5>
-                    <h3 class="mb-0">{{ $stats['total_classes'] }}</h3>
+        <div class="col-6 col-md-3">
+            <div class="dashboard-stat border rounded-3 p-3 bg-white text-center">
+                <div class="stat-icon bg-success bg-opacity-10 text-success mx-auto mb-2">
+                    <i class="fas fa-book"></i>
                 </div>
+                <div class="fw-bold fs-4">{{ $stats['total_classes'] }}</div>
+                <div class="text-muted small">Clases</div>
             </div>
         </div>
-        <div class="col-md-3 mb-3">
-            <div class="card bg-info text-white">
-                <div class="card-body">
-                    <h5 class="card-title">Total Reservas</h5>
-                    <h3 class="mb-0">{{ $stats['total_bookings'] }}</h3>
+        <div class="col-6 col-md-3">
+            <div class="dashboard-stat border rounded-3 p-3 bg-white text-center">
+                <div class="stat-icon bg-warning bg-opacity-10 text-warning mx-auto mb-2">
+                    <i class="fas fa-calendar-check"></i>
                 </div>
+                <div class="fw-bold fs-4">{{ $stats['total_bookings'] }}</div>
+                <div class="text-muted small">Reservas</div>
             </div>
         </div>
-        <div class="col-md-3 mb-3">
-            <div class="card bg-warning text-white">
-                <div class="card-body">
-                    <h5 class="card-title">Reservas Pendientes</h5>
-                    <h3 class="mb-0">{{ $stats['pending_bookings'] }}</h3>
+        <div class="col-6 col-md-3">
+            <div class="dashboard-stat border rounded-3 p-3 bg-white text-center">
+                <div class="stat-icon bg-info bg-opacity-10 text-info mx-auto mb-2">
+                    <i class="fas fa-star"></i>
                 </div>
+                <div class="fw-bold fs-4">{{ $stats['total_reviews'] }}</div>
+                <div class="text-muted small">Reseñas</div>
             </div>
         </div>
     </div>
 
-    <!-- Detalles de estadísticas -->
-    <div class="row mb-4">
-        <div class="col-md-6 mb-3">
-            <div class="card">
-                <div class="card-body">
-                    <h6 class="card-title">Usuarios por Rol</h6>
-                    <div class="row">
-                        <div class="col-6">
-                            <strong>Alumnos:</strong> {{ $stats['total_students'] }}
+    {{-- DESGLOSE USUARIOS + ACCIONES --}}
+    <div class="row g-4 mb-4">
+
+        {{-- Desglose por rol --}}
+        <div class="col-md-4">
+            <div class="dashboard-card bg-white border rounded-3 h-100">
+                <div class="dashboard-card-header border-bottom px-4 py-3 d-flex align-items-center gap-2">
+                    <i class="fas fa-chart-pie text-primary"></i>
+                    <span class="fw-bold">Usuarios por rol</span>
+                </div>
+                <div class="p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge bg-success">Alumnos</span>
                         </div>
-                        <div class="col-6">
-                            <strong>Profesores:</strong> {{ $stats['total_teachers'] }}
+                        <span class="fw-bold fs-5">{{ $stats['total_students'] }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge bg-primary">Profesores</span>
+                        </div>
+                        <span class="fw-bold fs-5">{{ $stats['total_teachers'] }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge bg-warning text-dark">Pendientes</span>
+                        </div>
+                        <span class="fw-bold fs-5">{{ $stats['pending_bookings'] }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Acciones rápidas --}}
+        <div class="col-md-8">
+            <div class="dashboard-card bg-white border rounded-3 h-100">
+                <div class="dashboard-card-header border-bottom px-4 py-3 d-flex align-items-center gap-2">
+                    <i class="fas fa-bolt text-primary"></i>
+                    <span class="fw-bold">Acciones rápidas</span>
+                </div>
+                <div class="p-4">
+                    <div class="row g-3">
+                        <div class="col-sm-4">
+                            <a href="{{ route('admin.users') }}"
+                               class="btn btn-outline-primary w-100 py-3 d-flex flex-column align-items-center gap-1">
+                                <i class="fas fa-users fs-4"></i>
+                                <span class="small fw-semibold">Gestionar usuarios</span>
+                            </a>
+                        </div>
+                        <div class="col-sm-4">
+                            <a href="{{ route('admin.classes') }}"
+                               class="btn btn-outline-primary w-100 py-3 d-flex flex-column align-items-center gap-1">
+                                <i class="fas fa-chalkboard-teacher fs-4"></i>
+                                <span class="small fw-semibold">Gestionar clases</span>
+                            </a>
+                        </div>
+                        <div class="col-sm-4">
+                            <a href="{{ route('admin.reviews') }}"
+                               class="btn btn-outline-primary w-100 py-3 d-flex flex-column align-items-center gap-1">
+                                <i class="fas fa-star fs-4"></i>
+                                <span class="small fw-semibold">Gestionar reseñas</span>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6 mb-3">
-            <div class="card">
-                <div class="card-body">
-                    <h6 class="card-title">Total Reseñas</h6>
-                    <h4 class="text-center">{{ $stats['total_reviews'] }}</h4>
-                </div>
-            </div>
-        </div>
+
     </div>
 
-    <!-- Acciones Rápidas -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="mb-0">
-                        <i class="fas fa-tools me-2"></i>
-                        Acciones Rápidas
-                    </h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-3 mb-2">
-                            <a href="{{ route('admin.users') }}" class="btn btn-outline-primary w-100">
-                                <i class="fas fa-users me-2"></i>
-                                Gestionar Usuarios
-                            </a>
-                        </div>
-                        <div class="col-md-3 mb-2">
-                            <a href="{{ route('admin.classes') }}" class="btn btn-outline-success w-100">
-                                <i class="fas fa-chalkboard-teacher me-2"></i>
-                                Gestionar Clases
-                            </a>
-                        </div>
-                        <div class="col-md-3 mb-2">
-                            <a href="{{ route('admin.reviews') }}" class="btn btn-outline-info w-100">
-                                <i class="fas fa-star me-2"></i>
-                                Gestionar Reseñas
-                            </a>
-                        </div>
+    {{-- TABLAS RECIENTES --}}
+    <div class="row g-4">
+
+        {{-- Usuarios recientes --}}
+        <div class="col-lg-6">
+            <div class="dashboard-card bg-white border rounded-3 h-100">
+                <div class="dashboard-card-header border-bottom px-4 py-3 d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fas fa-user-plus text-primary"></i>
+                        <span class="fw-bold">Usuarios recientes</span>
                     </div>
+                    <a href="{{ route('admin.users') }}" class="btn btn-sm btn-outline-primary">Ver todos</a>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <!-- Usuarios Recientes -->
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h6 class="mb-0">
-                        <i class="fas fa-user-plus me-2"></i>
-                        Usuarios Recientes
-                    </h6>
-                </div>
-                <div class="card-body">
+                <div class="p-4">
                     @if($recentUsers->count() > 0)
                         <div class="table-responsive">
-                            <table class="table table-sm">
-                                <thead>
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
                                     <tr>
-                                        <th>Nombre</th>
-                                        <th>Rol</th>
-                                        <th>Estado</th>
-                                        <th>Acciones</th>
+                                        <th class="small fw-semibold">Nombre</th>
+                                        <th class="small fw-semibold">Rol</th>
+                                        <th class="small fw-semibold">Estado</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($recentUsers as $user)
                                         <tr>
-                                            <td>{{ $user->name }}</td>
+                                            <td class="small fw-semibold">{{ $user->name }}</td>
                                             <td>
-                                                <span class="badge bg-{{ $user->role == 'admin' ? 'danger' : ($user->role == 'teacher' ? 'primary' : 'success') }}">
-                                                    {{ ucfirst($user->role) }}
+                                                <span class="badge
+                                                    @switch($user->role)
+                                                        @case('admin')   bg-danger  @break
+                                                        @case('teacher') bg-primary @break
+                                                        @default         bg-success @break
+                                                    @endswitch">
+                                                    @switch($user->role)
+                                                        @case('admin')   Admin    @break
+                                                        @case('teacher') Profesor @break
+                                                        @default         Alumno   @break
+                                                    @endswitch
                                                 </span>
                                             </td>
                                             <td>
-                                                @if($user->is_blocked)
-                                                    <span class="badge bg-danger">Bloqueado</span>
-                                                @else
-                                                    <span class="badge bg-success">Activo</span>
-                                                @endif
+                                                <span class="badge {{ $user->is_blocked ? 'bg-danger' : 'bg-success' }}">
+                                                    {{ $user->is_blocked ? 'Bloqueado' : 'Activo' }}
+                                                </span>
                                             </td>
                                             <td>
-                                                <a href="{{ route('admin.users') }}" class="btn btn-sm btn-outline-primary">
+                                                <a href="{{ route('admin.users') }}"
+                                                   class="btn btn-sm btn-outline-primary">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
                                             </td>
@@ -161,41 +182,45 @@
                             </table>
                         </div>
                     @else
-                        <p class="text-muted">No hay usuarios recientes.</p>
+                        <p class="text-muted small mb-0">No hay usuarios recientes.</p>
                     @endif
                 </div>
             </div>
         </div>
 
-        <!-- Clases Recientes -->
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-header">
-                    <h6 class="mb-0">
-                        <i class="fas fa-chalkboard-teacher me-2"></i>
-                        Clases Recientes
-                    </h6>
+        {{-- Clases recientes --}}
+        <div class="col-lg-6">
+            <div class="dashboard-card bg-white border rounded-3 h-100">
+                <div class="dashboard-card-header border-bottom px-4 py-3 d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fas fa-chalkboard-teacher text-primary"></i>
+                        <span class="fw-bold">Clases recientes</span>
+                    </div>
+                    <a href="{{ route('admin.classes') }}" class="btn btn-sm btn-outline-primary">Ver todas</a>
                 </div>
-                <div class="card-body">
+                <div class="p-4">
                     @if($recentClasses->count() > 0)
                         <div class="table-responsive">
-                            <table class="table table-sm">
-                                <thead>
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
                                     <tr>
-                                        <th>Título</th>
-                                        <th>Profesor</th>
-                                        <th>Precio</th>
-                                        <th>Acciones</th>
+                                        <th class="small fw-semibold">Título</th>
+                                        <th class="small fw-semibold">Profesor</th>
+                                        <th class="small fw-semibold">Precio</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($recentClasses as $class)
                                         <tr>
-                                            <td>{{ $class->title }}</td>
-                                            <td>{{ $class->teacher->name }}</td>
-                                            <td>{{ $class->price_per_hour }}€/h</td>
+                                            <td class="small fw-semibold">{{ Str::limit($class->title, 25) }}</td>
+                                            <td class="small text-muted">{{ $class->teacher->name }}</td>
+                                            <td class="small text-primary fw-bold">
+                                                €{{ number_format($class->price_per_hour, 2) }}/h
+                                            </td>
                                             <td>
-                                                <a href="{{ route('admin.classes') }}" class="btn btn-sm btn-outline-primary">
+                                                <a href="{{ route('admin.classes') }}"
+                                                   class="btn btn-sm btn-outline-primary">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
                                             </td>
@@ -205,11 +230,13 @@
                             </table>
                         </div>
                     @else
-                        <p class="text-muted">No hay clases recientes.</p>
+                        <p class="text-muted small mb-0">No hay clases recientes.</p>
                     @endif
                 </div>
             </div>
         </div>
+
     </div>
 </div>
+
 @endsection
