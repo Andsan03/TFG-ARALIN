@@ -14,10 +14,15 @@ COPY . .
 
 RUN composer install --no-dev --optimize-autoloader
 
-RUN npm install && npm run build
+RUN npm install
+RUN npm run build
 
 RUN chown -R www-data:www-data storage bootstrap/cache
 
-EXPOSE 80
+EXPOSE 8080
 
-CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT}
+CMD php artisan config:clear && \
+    php artisan cache:clear && \
+    php artisan view:clear && \
+    php artisan migrate --force && \
+    php artisan serve --host=0.0.0.0 --port=8080
