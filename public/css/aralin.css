@@ -49,6 +49,69 @@
 }
 
 /* ===========================
+   VIDEOCALLAMADAS
+   =========================== */
+.btn-videocall {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    border: none;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.2);
+}
+
+.btn-videocall:hover {
+    background: linear-gradient(135deg, #218838 0%, #1ea085 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+    color: white;
+}
+
+.btn-videocall:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(40, 167, 69, 0.2);
+}
+
+.videocall-badge {
+    background-color: #28a745;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.videocall-indicator {
+    position: relative;
+}
+
+.videocall-indicator::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 8px;
+    height: 8px;
+    background-color: #28a745;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+    }
+}
+
+/* ===========================
    HERO
    =========================== */
 
@@ -377,6 +440,30 @@ body {
 .dropdown-menu {
     border-radius: 10px;
     min-width: 200px;
+    z-index: 1050;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: auto;
+    margin-top: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: white;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+/* Asegurar que el dropdown del perfil esté por encima */
+.navbar .dropdown-menu {
+    z-index: 1050 !important;
+}
+
+/* Evitar que otros elementos tapen el dropdown */
+.navbar-nav {
+    position: relative;
+    z-index: 1;
 }
  
 .dropdown-item {
@@ -757,6 +844,30 @@ body {
 .dropdown-menu {
     border-radius: 10px;
     min-width: 200px;
+    z-index: 1050;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: auto;
+    margin-top: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: white;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+/* Asegurar que el dropdown del perfil esté por encima */
+.navbar .dropdown-menu {
+    z-index: 1050 !important;
+}
+
+/* Evitar que otros elementos tapen el dropdown */
+.navbar-nav {
+    position: relative;
+    z-index: 1;
 }
 
 .dropdown-item {

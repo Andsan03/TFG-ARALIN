@@ -6,14 +6,18 @@ use Illuminate\Http\Request;
 use App\Models\Classes;
 use App\Models\Booking;
 use App\Models\Review;
+use App\Services\VideoCallService;
 use Illuminate\Support\Facades\Auth;
 
 class TeacherController extends Controller
 {
-    public function __construct()
+    protected $videoCallService;
+
+    public function __construct(VideoCallService $videoCallService)
     {
         $this->middleware('auth');
         $this->middleware('role:teacher');
+        $this->videoCallService = $videoCallService;
     }
 
     /**
@@ -223,10 +227,20 @@ class TeacherController extends Controller
             abort(403, 'No tienes permiso para gestionar esta reserva.');
         }
 
+        // Actualizar estado de la reserva
         $booking->update(['status' => 'aceptada']);
 
+        // Generar automáticamente enlace de videollamada si aplica
+        $meetingUrl = $this->videoCallService->generateMeetingUrl($booking);
+        
+        // Preparar mensaje de éxito
+        $successMessage = 'Reserva aceptada correctamente.';
+        if ($meetingUrl) {
+            $successMessage .= ' Se ha generado el enlace de videollamada automáticamente.';
+        }
+
         return redirect()->route('teacher.bookings')
-            ->with('success', 'Reserva aceptada correctamente.');
+            ->with('success', $successMessage);
     }
 
     /**

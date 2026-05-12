@@ -214,7 +214,8 @@ class StudentController extends Controller
     public function bookClass(Request $request, Classes $class)
     {
         // Logging para diagnóstico
-        \Log::info('Intento de reserva - Usuario: ' . Auth::id() . ' - Clase: ' . $class->id . ' - Título: ' . $class->title);
+        Log::info('Intento de reserva - Usuario: ' . Auth::id() . ' - Clase: ' . $class->id . ' - Título: ' . $class->title);
+        Log::info('Datos recibidos: ', $request->all());
         
         // Verificar si el alumno ya tiene una reserva ACTIVA para esta clase
         // Solo se consideran activas las reservas pendientes o aceptadas (NO las completadas)
@@ -235,25 +236,54 @@ class StudentController extends Controller
             Log::info('No se encontraron reservas activas - Permitiendo nueva reserva');
         }
         
-        $request->validate([
-            'scheduled_at' => 'required|date|after:now',
-            'message' => 'nullable|string|max:500',
-            'booking_modality' => 'required|in:online,presential',
-        ]);
+        try {
+            $validated = $request->validate([
+                'scheduled_at' => 'required|date|after:now',
+                'message' => 'nullable|string|max:500',
+                'booking_modality' => 'required|in:online,presencial,mixed,ambas',
+            ]);
+            
+            Log::info('Validación exitosa: ', $validated);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            Log::error('Error de validación: ', $e->errors());
+            return redirect()->back()
+                ->withErrors($e->errors())
+                ->withInput();
+        }
         
         // Usar la modalidad seleccionada por el usuario
         $bookingModality = $request->input('booking_modality');
         
-        Booking::create([
-            'class_id' => $class->id,
-            'student_id' => Auth::id(),
-            'scheduled_at' => $request->input('scheduled_at'),
-            'status' => 'pendiente',
-            'booking_modality' => $bookingModality,
-        ]);
-        
-        return redirect()->route('student.bookings')
-            ->with('success', 'Reserva solicitada correctamente. El profesor la revisará pronto.');
+        try {
+            Log::info('Intentando crear reserva con datos: ', [
+                'class_id' => $class->id,
+                'student_id' => Auth::id(),
+                'scheduled_at' => $request->input('scheduled_at'),
+                'status' => 'pendiente',
+                'booking_modality' => $bookingModality,
+            ]);
+            
+            $booking = Booking::create([
+                'class_id' => $class->id,
+                'student_id' => Auth::id(),
+                'scheduled_at' => $request->input('scheduled_at'),
+                'status' => 'pendiente',
+                'booking_modality' => $bookingModality,
+            ]);
+            
+            Log::info('Reserva creada exitosamente - ID: ' . $booking->id);
+            
+            return redirect()->route('student.bookings')
+                ->with('success', 'Reserva solicitada correctamente. El profesor la revisará pronto.');
+                
+        } catch (\Exception $e) {
+            Log::error('Error al crear reserva: ' . $e->getMessage());
+            Log::error('Stack trace: ' . $e->getTraceAsString());
+            
+            return redirect()->back()
+                ->with('error', 'Ha ocurrido un error al procesar tu reserva. Por favor, inténtalo de nuevo.')
+                ->withInput();
+        }
     }
 
     /**

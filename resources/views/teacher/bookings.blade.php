@@ -125,11 +125,27 @@
                                 </div>
                             @endif
 
-                            {{-- Videollamada --}}
-                            @if($booking->meeting_url && $booking->status === 'aceptada')
+                            {{-- Fecha y categoría --}}
+                            <div class="d-flex gap-3 mb-3 small text-muted">
+                                <div>
+                                    <i class="fas fa-clock text-primary me-1"></i>
+                                    {{ $booking->scheduled_at ? $booking->scheduled_at->format('d/m/Y H:i') : 'Por definir' }}
+                                </div>
+                                <div>
+                                    <i class="fas fa-tag text-primary me-1"></i>
+                                    {{ $booking->class->category }}
+                                </div>
+                                <div>
+                                    <i class="fas fa-map-marker-alt text-primary me-1"></i>
+                                    {{ ucfirst($booking->class->modality) }}
+                                </div>
+                            </div>
+
+                            {{-- Enlace videollamada si está aceptada y es online --}}
+                            @if($booking->status === 'aceptada' && $booking->meeting_url)
                                 <a href="{{ $booking->meeting_url }}" target="_blank"
                                    class="btn btn-success btn-sm w-100 mb-3">
-                                    <i class="fas fa-video me-1"></i>Unirse a la videollamada
+                                    <i class="fas fa-video me-2"></i>Unirse a la videollamada
                                 </a>
                             @endif
 

@@ -128,6 +128,14 @@ return [
             'replace_placeholders' => true,
         ],
 
+        // Canal específico para videollamadas
+        'videocalls' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/videocalls.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'replace_placeholders' => true,
+        ],
+
         'errorlog' => [
             'driver' => 'errorlog',
             'level' => env('LOG_LEVEL', 'debug'),

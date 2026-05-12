@@ -115,6 +115,12 @@
                                     <i class="fas fa-book me-1"></i>Clases
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('admin.reviews*') ? 'active fw-semibold' : '' }}"
+                                   href="{{ route('admin.reviews') }}">
+                                    <i class="fas fa-star me-1"></i>Reseñas
+                                </a>
+                            </li>
                         @endif
 
                     @endauth
