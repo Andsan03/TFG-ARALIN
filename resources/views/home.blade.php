@@ -8,7 +8,7 @@
         <div class="row align-items-center g-5">
             <div class="col-lg-6">
                 <h1 class="fw-bold display-5 mb-3">
-                    Aprende lo que quieras con el
+                    Ermaaaaaaa I LOVE YOUUUUUUU!!
                     <span class="text-primary">profesor ideal</span>
                 </h1>
                 <p class="text-muted fs-5 mb-4">
