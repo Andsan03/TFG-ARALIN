@@ -87,3 +87,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/result/{id}', [AssessmentController::class, 'result'])->name('result');
     });
 });
+
+use Illuminate\Support\Facades\Artisan;
+
+Route::get('/seed', function () {
+    Artisan::call('db:seed');
+    return 'Seed ejecutado';
+});
