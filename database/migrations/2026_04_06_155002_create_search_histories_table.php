@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
             $table->string('query');
             $table->string('category')->nullable();
-            $table->enum('modality', ['online', 'presential', 'mixed'])->nullable();
+            $table->enum('modality', ['online', 'presencial', 'ambas'])->nullable();
             $table->decimal('max_price', 8, 2)->nullable();
             $table->timestamps();
         });

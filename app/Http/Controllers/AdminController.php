@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Classes;
+use App\Enums\ClassModality;
 use App\Models\Booking;
+use App\Models\Classes;
 use App\Models\Review;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -42,6 +42,7 @@ class AdminController extends Controller
     public function users()
     {
         $users = User::orderBy('created_at', 'desc')->paginate(20);
+
         return view('admin.users', compact('users'));
     }
 
@@ -51,7 +52,7 @@ class AdminController extends Controller
     public function blockUser($userId)
     {
         $user = User::findOrFail($userId);
-        
+
         // Evitar bloquear a otros administradores
         if ($user->role === 'admin') {
             return redirect()->back()->with('error', 'No se puede bloquear a otro administrador.');
@@ -78,9 +79,42 @@ class AdminController extends Controller
     /**
      * Listar todas las clases
      */
-    public function classes()
+    public function classes(Request $request)
     {
-        $classes = Classes::with('teacher')->orderBy('created_at', 'desc')->paginate(20);
+        $query = Classes::with('teacher')->withCount('bookings');
+
+        if ($request->filled('search')) {
+            $term = $request->input('search');
+            $query->where(function ($q) use ($term) {
+                $q->where('title', 'like', '%'.$term.'%')
+                    ->orWhereHas('teacher', function ($tq) use ($term) {
+                        $tq->where('name', 'like', '%'.$term.'%')
+                            ->orWhere('email', 'like', '%'.$term.'%');
+                    });
+            });
+        }
+
+        if ($request->filled('category')) {
+            $query->where('category', $request->input('category'));
+        }
+
+        if ($request->filled('modality')) {
+            $modality = ClassModality::tryFrom((string) $request->input('modality'));
+            if ($modality) {
+                $query->where('modality', $modality->value);
+            }
+        }
+
+        if ($request->filled('status')) {
+            if ($request->input('status') === 'active') {
+                $query->where('is_active', true);
+            } elseif ($request->input('status') === 'inactive') {
+                $query->where('is_active', false);
+            }
+        }
+
+        $classes = $query->orderBy('created_at', 'desc')->paginate(20)->withQueryString();
+
         return view('admin.classes', compact('classes'));
     }
 
@@ -91,7 +125,7 @@ class AdminController extends Controller
     {
         $class = Classes::findOrFail($classId);
         $className = $class->title;
-        
+
         // Eliminar también las reservas y reseñas asociadas
         $class->bookings()->delete();
         $class->reviews()->delete();

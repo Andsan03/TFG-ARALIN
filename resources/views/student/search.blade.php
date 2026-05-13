@@ -142,8 +142,8 @@
                                     @endswitch
                                 </span>
                                 <span class="badge bg-info bg-opacity-10 text-info">
-                                    <i class="fas fa-{{ $class->modality === 'online' ? 'video' : ($class->modality === 'presencial' ? 'map-marker-alt' : 'globe') }} me-1"></i>
-                                    {{ ucfirst($class->modality) }}
+                                    <i class="fas fa-{{ $class->modality->faIcon() }} me-1"></i>
+                                    {{ $class->modality->label() }}
                                 </span>
                             </div>
 

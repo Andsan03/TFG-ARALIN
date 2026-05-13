@@ -81,8 +81,16 @@ class AssessmentController extends Controller
         // Validar que se respondieron todas las preguntas
         $request->validate([
             'answers' => 'required|array',
-            'answers.*' => 'required|string'
+            'answers.*' => 'required|string|in:a,b,c,d'
         ]);
+
+        // Verificar que el número de respuestas coincida con las preguntas esperadas
+        $expectedQuestionCount = 10; // El sistema selecciona 10 preguntas aleatoriamente
+        if (count($request->input('answers')) !== $expectedQuestionCount) {
+            return redirect()->back()
+                ->with('error', 'Debes responder todas las preguntas para continuar.')
+                ->withInput();
+        }
 
         try {
             $answers = $request->input('answers');

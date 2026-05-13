@@ -48,7 +48,7 @@
                                         <input class="form-check-input d-none" type="radio"
                                                name="answers[{{ $question->id }}]"
                                                id="ans_{{ $question->id }}_{{ $key }}"
-                                               value="{{ $key }}" required>
+                                               value="{{ $key }}">
                                         <label class="assessment-label" for="ans_{{ $question->id }}_{{ $key }}">
                                             <span class="option-letter">{{ strtoupper($key) }}</span>
                                             {{ $option }}
@@ -63,7 +63,7 @@
                                         <input class="form-check-input d-none" type="radio"
                                                name="answers[{{ $question->id }}]"
                                                id="ans_{{ $question->id }}_{{ $key }}"
-                                               value="{{ $key }}" required>
+                                               value="{{ $key }}">
                                         <label class="assessment-label" for="ans_{{ $question->id }}_{{ $key }}">
                                             <span class="option-letter">{{ strtoupper($key) }}</span>
                                             {{ $option }}

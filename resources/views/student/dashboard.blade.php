@@ -88,7 +88,7 @@
                             </div>
                             <div class="d-flex align-items-center text-muted small">
                                 <i class="fas fa-map-marker-alt text-primary me-2"></i>
-                                {{ ucfirst($nextClass->class->modality) }}
+                                {{ $nextClass->class->modality->label() }}
                             </div>
                         </div>
                         @if($nextClass->meeting_url)
@@ -167,11 +167,14 @@
                 <div class="p-4">
                     @if($assessments->count() > 0)
                         @foreach($assessments as $assessment)
-                            <div class="mb-3 p-3 border rounded assessment-level-{{ $assessment['level'] }}">
+                            @php
+                                $normLevel = \App\Enums\AssessmentSkillLevel::normalize($assessment['level'])?->value ?? $assessment['level'];
+                            @endphp
+                            <div class="mb-3 p-3 border rounded assessment-level-{{ $normLevel }}">
                                 <div class="d-flex justify-content-between align-items-center mb-2">
                                     <span class="fw-bold text-capitalize">{{ ucfirst($assessment['subject']) }}</span>
-                                    <span class="badge level-badge-{{ $assessment['level'] }}">
-                                        {{ ucfirst($assessment['level']) }}
+                                    <span class="badge level-badge-{{ $normLevel }}">
+                                        {{ \App\Enums\AssessmentSkillLevel::normalize($assessment['level'])?->label() ?? ucfirst($assessment['level']) }}
                                     </span>
                                 </div>
                                 <div class="small text-muted">

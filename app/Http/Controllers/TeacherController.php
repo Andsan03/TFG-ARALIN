@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Classes;
+use App\Enums\ClassLevel;
+use App\Enums\ClassModality;
 use App\Models\Booking;
+use App\Models\Classes;
 use App\Models\Review;
 use App\Services\VideoCallService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class TeacherController extends Controller
 {
@@ -26,24 +29,24 @@ class TeacherController extends Controller
     public function dashboard()
     {
         $teacher = Auth::user();
-        
+
         // Estadísticas del profesor
         $totalClasses = Classes::where('teacher_id', $teacher->id)->count();
         $activeClasses = Classes::where('teacher_id', $teacher->id)->where('is_active', true)->count();
-        $totalBookings = Booking::whereHas('class', function($query) use ($teacher) {
+        $totalBookings = Booking::whereHas('class', function ($query) use ($teacher) {
             $query->where('teacher_id', $teacher->id);
         })->count();
-        $pendingBookings = Booking::whereHas('class', function($query) use ($teacher) {
+        $pendingBookings = Booking::whereHas('class', function ($query) use ($teacher) {
             $query->where('teacher_id', $teacher->id);
         })->where('status', 'pendiente')->count();
-        
+
         // Clases y reservas recientes
         $recentClasses = Classes::where('teacher_id', $teacher->id)
             ->orderBy('created_at', 'desc')
             ->take(5)
             ->get();
-            
-        $recentBookings = Booking::whereHas('class', function($query) use ($teacher) {
+
+        $recentBookings = Booking::whereHas('class', function ($query) use ($teacher) {
             $query->where('teacher_id', $teacher->id);
         })->with('student', 'class')
             ->orderBy('created_at', 'desc')
@@ -51,9 +54,9 @@ class TeacherController extends Controller
             ->get();
 
         return view('teacher.dashboard', compact(
-            'totalClasses', 
-            'activeClasses', 
-            'totalBookings', 
+            'totalClasses',
+            'activeClasses',
+            'totalBookings',
             'pendingBookings',
             'recentClasses',
             'recentBookings'
@@ -67,7 +70,7 @@ class TeacherController extends Controller
     {
         $teacher = Auth::user();
         $classes = Classes::where('teacher_id', $teacher->id)
-            ->withCount(['bookings' => function($query) {
+            ->withCount(['bookings' => function ($query) {
                 $query->where('status', '!=', 'rechazada');
             }])
             ->orderBy('created_at', 'desc')
@@ -94,16 +97,16 @@ class TeacherController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:2000',
             'category' => 'required|string|in:matematicas,ciencias,idiomas,arte,musica,deporte,programacion,negocios,otros',
-            'modality' => 'required|in:online,presencial,ambas',
+            'modality' => ['required', Rule::enum(ClassModality::class)],
             'price_per_hour' => 'required|numeric|min:1|max:999',
-            'level' => 'required|in:beginner,intermediate,advanced,all',
+            'level' => ['required', Rule::enum(ClassLevel::class)],
         ];
-        
-        // Si es presencial o ambas, requerir ubicación
-        if ($request->modality === 'presencial' || $request->modality === 'ambas') {
+
+        $modality = ClassModality::tryFrom((string) $request->input('modality', ''));
+        if ($modality?->requiresLocation()) {
             $validationRules['location'] = 'required|string|max:255';
         }
-        
+
         $request->validate($validationRules);
 
         Classes::create([
@@ -149,10 +152,19 @@ class TeacherController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:2000',
             'category' => 'required|string|in:matematicas,ciencias,idiomas,arte,musica,deporte,programacion,negocios,otros',
-            'level' => 'required|string|in:beginner,intermediate,advanced,all',
+            'level' => ['required', Rule::enum(ClassLevel::class)],
             'price_per_hour' => 'required|numeric|min:1|max:999',
-            'modality' => 'required|string|in:online,presencial,ambas',
-            'location' => 'required_if:modality,presencial,ambas|string|max:255'
+            'modality' => ['required', Rule::enum(ClassModality::class)],
+            'location' => [
+                'nullable',
+                'string',
+                'max:255',
+                Rule::requiredIf(function () use ($request) {
+                    $m = ClassModality::tryFrom((string) $request->input('modality', ''));
+
+                    return $m?->requiresLocation() ?? false;
+                }),
+            ],
         ]);
 
         $class->update($validated);
@@ -171,10 +183,10 @@ class TeacherController extends Controller
             abort(403, 'No tienes permiso para modificar esta clase.');
         }
 
-        $class->update(['is_active' => !$class->is_active]);
-        
+        $class->update(['is_active' => ! $class->is_active]);
+
         $status = $class->is_active ? 'activada' : 'desactivada';
-        
+
         return redirect()->route('teacher.classes')
             ->with('success', "Clase {$status} correctamente.");
     }
@@ -208,7 +220,7 @@ class TeacherController extends Controller
     public function bookings()
     {
         $teacher = Auth::user();
-        $bookings = Booking::whereHas('class', function($query) use ($teacher) {
+        $bookings = Booking::whereHas('class', function ($query) use ($teacher) {
             $query->where('teacher_id', $teacher->id);
         })->with('student', 'class')
             ->orderBy('scheduled_at', 'desc')
@@ -232,7 +244,7 @@ class TeacherController extends Controller
 
         // Generar automáticamente enlace de videollamada si aplica
         $meetingUrl = $this->videoCallService->generateMeetingUrl($booking);
-        
+
         // Preparar mensaje de éxito
         $successMessage = 'Reserva aceptada correctamente.';
         if ($meetingUrl) {

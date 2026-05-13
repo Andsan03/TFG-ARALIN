@@ -114,7 +114,7 @@
                                 <div class="flex-fill">
                                     <input type="radio" class="btn-check" name="modality"
                                            id="mod-online" value="online"
-                                           {{ old('modality', $class->modality) == 'online' ? 'checked' : '' }}
+                                           {{ old('modality', $class->modality->value) == 'online' ? 'checked' : '' }}
                                            onchange="toggleLocation()" required>
                                     <label class="btn btn-outline-primary w-100 btn-sm py-2" for="mod-online">
                                         <i class="fas fa-video d-block mb-1"></i>Online
@@ -123,7 +123,7 @@
                                 <div class="flex-fill">
                                     <input type="radio" class="btn-check" name="modality"
                                            id="mod-presencial" value="presencial"
-                                           {{ old('modality', $class->modality) == 'presencial' ? 'checked' : '' }}
+                                           {{ old('modality', $class->modality->value) == 'presencial' ? 'checked' : '' }}
                                            onchange="toggleLocation()">
                                     <label class="btn btn-outline-primary w-100 btn-sm py-2" for="mod-presencial">
                                         <i class="fas fa-map-marker-alt d-block mb-1"></i>Presencial
@@ -132,7 +132,7 @@
                                 <div class="flex-fill">
                                     <input type="radio" class="btn-check" name="modality"
                                            id="mod-ambas" value="ambas"
-                                           {{ old('modality', $class->modality) == 'ambas' ? 'checked' : '' }}
+                                           {{ old('modality', $class->modality->value) == 'ambas' ? 'checked' : '' }}
                                            onchange="toggleLocation()">
                                     <label class="btn btn-outline-primary w-100 btn-sm py-2" for="mod-ambas">
                                         <i class="fas fa-globe d-block mb-1"></i>Ambas

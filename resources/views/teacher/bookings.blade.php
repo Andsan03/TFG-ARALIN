@@ -94,7 +94,7 @@
                                     <i class="fas fa-euro-sign me-1"></i>{{ number_format($booking->class->price_per_hour, 2) }}/h
                                 </span>
                                 <span class="badge bg-info bg-opacity-10 text-info small">
-                                    {{ ucfirst($booking->class->modality) }}
+                                    {{ $booking->class->modality->label() }}
                                 </span>
                             </div>
 
@@ -113,11 +113,7 @@
                                         <i class="fas fa-brain text-primary me-1"></i>Nivel del alumno
                                     </div>
                                     <span class="badge bg-primary bg-opacity-10 text-primary">
-                                        @switch($booking->assessment->detected_level)
-                                            @case('beginner')     Principiante @break
-                                            @case('intermediate') Intermedio   @break
-                                            @case('advanced')     Avanzado     @break
-                                        @endswitch
+                                        {{ \App\Enums\AssessmentSkillLevel::normalize($booking->assessment->detected_level)?->label() ?? ucfirst($booking->assessment->detected_level) }}
                                     </span>
                                     <p class="text-muted mb-0 mt-1" style="font-size:.75rem">
                                         {{ Str::limit($booking->assessment->ai_recommendation, 80) }}
@@ -137,7 +133,7 @@
                                 </div>
                                 <div>
                                     <i class="fas fa-map-marker-alt text-primary me-1"></i>
-                                    {{ ucfirst($booking->class->modality) }}
+                                    {{ $booking->class->modality->label() }}
                                 </div>
                             </div>
 

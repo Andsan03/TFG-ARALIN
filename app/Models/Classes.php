@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ClassModality;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,20 +11,21 @@ class Classes extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 
-        'description', 
-        'category', 
-        'modality', 
-        'price_per_hour', 
-        'level', 
-        'is_active', 
+        'title',
+        'description',
+        'category',
+        'modality',
+        'price_per_hour',
+        'level',
+        'is_active',
         'teacher_id',
-        'location'
+        'location',
     ];
 
     protected function casts(): array
     {
         return [
+            'modality' => ClassModality::class,
             'price_per_hour' => 'decimal:2',
             'is_active' => 'boolean',
         ];

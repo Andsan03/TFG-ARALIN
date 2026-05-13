@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('category');
-            $table->enum('modality', ['online', 'presential', 'mixed']);
+            $table->enum('modality', ['online', 'presencial', 'ambas']);
             $table->decimal('price_per_hour', 8, 2);
             $table->enum('level', ['primaria', 'eso', 'bachillerato', 'universidad', 'otros']);
             $table->boolean('is_active')->default(true);

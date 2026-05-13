@@ -116,7 +116,7 @@
    =========================== */
 
 body {
-    background-color: rgb(1, 116, 188);
+    background-color: rgb(196, 232, 255);
 }
 .hero {
     background: linear-gradient(135deg, #eef3ff, #93b0f8);
@@ -631,7 +631,7 @@ body {
    =========================== */
 
 .login-page {
-    min-height: 80vh;
+    min-height: 100vh;
     background: linear-gradient(135deg, #eef3ff, #93b0f8);
     display: flex;
     align-items: center;

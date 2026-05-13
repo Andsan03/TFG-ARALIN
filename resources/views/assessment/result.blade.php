@@ -6,43 +6,20 @@
     <div class="row justify-content-center">
         <div class="col-lg-7">
 
-            {{-- NIVEL DETECTADO --}}
             @php
-                $levelColor = match($assessment->detected_level) {
-                    'beginner'     => '#198754',
-                    'intermediate' => '#f59e0b',
-                    'advanced'     => '#534AB7',
-                    default        => '#1a56db',
-                };
-                $levelIcon = match($assessment->detected_level) {
-                    'beginner'     => 'fas fa-seedling',
-                    'intermediate' => 'fas fa-code',
-                    'advanced'     => 'fas fa-rocket',
-                    default        => 'fas fa-star',
-                };
-                $levelText = match($assessment->detected_level) {
-                    'beginner'     => 'Principiante',
-                    'intermediate' => 'Intermedio',
-                    'advanced'     => 'Avanzado',
-                    default        => ucfirst($assessment->detected_level),
-                };
-                $levelMsg = match($assessment->detected_level) {
-                    'beginner'     => 'Estás comenzando tu camino. ¡Sigue así!',
-                    'intermediate' => 'Tienes conocimientos sólidos. Es hora de desafiarte más.',
-                    'advanced'     => '¡Nivel avanzado! Estás listo para proyectos complejos.',
-                    default        => '',
-                };
+                $levelUi = \App\Enums\AssessmentSkillLevel::presentation($assessment->detected_level);
             @endphp
 
+            {{-- NIVEL DETECTADO --}}
             <div class="bg-white border rounded-3 p-4 mb-4 text-center">
 
-                <div class="login-logo mb-3 mx-auto" style="background: {{ $levelColor }}">
-                    <i class="{{ $levelIcon }}"></i>
+                <div class="login-logo mb-3 mx-auto" style="background: {{ $levelUi['color'] }}">
+                    <i class="{{ $levelUi['icon'] }}"></i>
                 </div>
 
                 <p class="text-muted small mb-1">Tu nivel detectado en <strong>{{ ucfirst($assessment->subject) }}</strong></p>
-                <h2 class="fw-bold mb-2">{{ $levelText }}</h2>
-                <p class="text-muted small mb-0">{{ $levelMsg }}</p>
+                <h2 class="fw-bold mb-2">{{ $levelUi['text'] }}</h2>
+                <p class="text-muted small mb-0">{{ $levelUi['message'] }}</p>
             </div>
 
             {{-- RECOMENDACIÓN IA --}}
@@ -119,7 +96,7 @@
                                 <div class="small text-muted">
                                     Tu respuesta:
                                     <span class="badge {{ $isCorrect ? 'bg-success' : 'bg-danger' }}">
-                                        {{ strtoupper($userAnswer) }})
+                                        {{ strtoupper($userAnswer) }}
                                         @if($q) {{ $q->{'option_' . $userAnswer} ?? '' }} @endif
                                     </span>
                                 </div>

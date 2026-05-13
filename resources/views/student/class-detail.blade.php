@@ -36,8 +36,8 @@
                             @endswitch
                         </span>
                         <span class="badge bg-info bg-opacity-10 text-info">
-                            <i class="fas fa-{{ $class->modality === 'online' ? 'video' : ($class->modality === 'presencial' ? 'map-marker-alt' : 'globe') }} me-1"></i>
-                            {{ ucfirst($class->modality) }}
+                            <i class="fas fa-{{ $class->modality->faIcon() }} me-1"></i>
+                            {{ $class->modality->label() }}
                         </span>
                     </div>
                 </div>
@@ -151,7 +151,7 @@
                     <li class="mb-2 small">
                         <i class="fas fa-check text-success me-2"></i>Cancelación gratuita
                     </li>
-                    @if($class->modality !== 'presencial')
+                    @if($class->modality->offersOnlineSessions())
                         <li class="mb-2 small">
                             <i class="fas fa-check text-success me-2"></i>Enlace de videollamada incluido
                         </li>

@@ -2,9 +2,11 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Log;
+use App\Enums\ClassModality;
 use App\Models\Booking;
+use App\Models\User;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class VideoCallService
 {
@@ -12,12 +14,12 @@ class VideoCallService
      * URL base para Jitsi Meet (público y gratuito)
      */
     private const JITSI_BASE_URL = 'https://meet.jit.si/';
-    
+
     /**
      * Longitud del identificador único de sala
      */
     private const ROOM_ID_LENGTH = 16;
-    
+
     /**
      * Prefijo para las salas de ARALIN
      */
@@ -25,20 +27,20 @@ class VideoCallService
 
     /**
      * Generar un enlace de videollamada único para una reserva
-     * 
-     * @param Booking $booking
+     *
      * @return string|null URL de la videollamada o null si no aplica
      */
     public function generateMeetingUrl(Booking $booking): ?string
     {
         try {
             // Verificar que la reserva aceptada y requiera videollamada
-            if (!$this->shouldGenerateMeetingUrl($booking)) {
+            if (! $this->shouldGenerateMeetingUrl($booking)) {
                 Log::channel('videocalls')->info('No se genera URL: reserva no aplica para videollamada', [
                     'booking_id' => $booking->id,
                     'status' => $booking->status,
-                    'modality' => $booking->booking_modality ?? $booking->class->modality
+                    'modality' => $booking->booking_modality ?? $booking->class->modality->value,
                 ]);
+
                 return null;
             }
 
@@ -46,14 +48,15 @@ class VideoCallService
             if ($booking->meeting_url) {
                 Log::channel('videocalls')->info('Reserva ya tiene URL asignada', [
                     'booking_id' => $booking->id,
-                    'existing_url' => $booking->meeting_url
+                    'existing_url' => $booking->meeting_url,
                 ]);
+
                 return $booking->meeting_url;
             }
 
             // Generar identificador único y seguro
             $roomName = $this->generateUniqueRoomName($booking);
-            $meetingUrl = self::JITSI_BASE_URL . $roomName;
+            $meetingUrl = self::JITSI_BASE_URL.$roomName;
 
             // Guardar URL en la reserva
             $booking->update(['meeting_url' => $meetingUrl]);
@@ -64,7 +67,7 @@ class VideoCallService
                 'meeting_url' => $meetingUrl,
                 'class_title' => $booking->class->title,
                 'student_name' => $booking->student->name,
-                'teacher_name' => $booking->class->teacher->name
+                'teacher_name' => $booking->class->teacher->name,
             ]);
 
             return $meetingUrl;
@@ -73,18 +76,15 @@ class VideoCallService
             Log::channel('videocalls')->error('Error generando URL de videollamada', [
                 'booking_id' => $booking->id,
                 'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+                'trace' => $e->getTraceAsString(),
             ]);
-            
+
             return null;
         }
     }
 
     /**
      * Verificar si una reserva debe tener URL de videollamada
-     * 
-     * @param Booking $booking
-     * @return bool
      */
     private function shouldGenerateMeetingUrl(Booking $booking): bool
     {
@@ -93,18 +93,13 @@ class VideoCallService
             return false;
         }
 
-        // Determinar modalidad de la reserva
-        $modality = $booking->booking_modality ?? $booking->class->modality;
+        $raw = (string) ($booking->booking_modality ?? $booking->class->modality->value);
 
-        // Generar URL para modalidades online y mixta
-        return in_array($modality, ['online', 'mixed', 'ambas']);
+        return ClassModality::tryFrom($raw) === ClassModality::Online;
     }
 
     /**
      * Generar un nombre de sala único y seguro
-     * 
-     * @param Booking $booking
-     * @return string
      */
     private function generateUniqueRoomName(Booking $booking): string
     {
@@ -122,59 +117,46 @@ class VideoCallService
 
     /**
      * Validar si un URL de videollamada es válido
-     * 
-     * @param string $url
-     * @return bool
      */
     public function isValidMeetingUrl(string $url): bool
     {
-        return str_starts_with($url, self::JITSI_BASE_URL) && 
+        return str_starts_with($url, self::JITSI_BASE_URL) &&
                str_contains($url, self::ROOM_PREFIX);
     }
 
     /**
      * Obtener información de la sala desde un URL
-     * 
-     * @param string $url
-     * @return array|null
      */
     public function extractRoomInfo(string $url): ?array
     {
-        if (!$this->isValidMeetingUrl($url)) {
+        if (! $this->isValidMeetingUrl($url)) {
             return null;
         }
 
         $roomName = str_replace(self::JITSI_BASE_URL, '', $url);
-        
+
         return [
             'room_name' => $roomName,
             'full_url' => $url,
             'is_aralin_room' => str_starts_with($roomName, self::ROOM_PREFIX),
-            'jitsi_url' => self::JITSI_BASE_URL
+            'jitsi_url' => self::JITSI_BASE_URL,
         ];
     }
 
     /**
      * Generar URL para invitado (sin requerir login)
-     * 
-     * @param string $meetingUrl
-     * @param string $displayName
-     * @return string
      */
     public function generateGuestUrl(string $meetingUrl, string $displayName): string
     {
         $separator = str_contains($meetingUrl, '?') ? '&' : '?';
-        return $meetingUrl . $separator . 'config.prejoinPageEnabled=false&userInfo.displayName=' . urlencode($displayName);
+
+        return $meetingUrl.$separator.'config.prejoinPageEnabled=false&userInfo.displayName='.urlencode($displayName);
     }
 
     /**
      * Verificar si una reserva puede acceder a videollamada
-     * 
-     * @param Booking $booking
-     * @param \App\Models\User $user
-     * @return bool
      */
-    public function canAccessVideoCall(Booking $booking, \App\Models\User $user): bool
+    public function canAccessVideoCall(Booking $booking, User $user): bool
     {
         // La reserva debe estar aceptada
         if ($booking->status !== 'aceptada') {
@@ -182,7 +164,7 @@ class VideoCallService
         }
 
         // Debe tener URL asignada
-        if (!$booking->meeting_url) {
+        if (! $booking->meeting_url) {
             return false;
         }
 
@@ -192,14 +174,11 @@ class VideoCallService
 
     /**
      * Obtener estadísticas de uso de videollamadas
-     * 
-     * @param int $days
-     * @return array
      */
     public function getVideoCallStats(int $days = 30): array
     {
         $startDate = now()->subDays($days);
-        
+
         $totalBookings = Booking::where('created_at', '>=', $startDate)
             ->where('status', 'aceptada')
             ->count();
@@ -214,7 +193,7 @@ class VideoCallService
             'video_call_bookings' => $videoCallBookings,
             'percentage' => $totalBookings > 0 ? round(($videoCallBookings / $totalBookings) * 100, 2) : 0,
             'days_analyzed' => $days,
-            'period' => $startDate->format('Y-m-d') . ' to ' . now()->format('Y-m-d')
+            'period' => $startDate->format('Y-m-d').' to '.now()->format('Y-m-d'),
         ];
     }
 }

@@ -82,7 +82,7 @@
                     </div>
 
                     {{-- Modalidad (solo si es ambas) --}}
-                    @if($class->modality === 'ambas')
+                    @if($class->modality === \App\Enums\ClassModality::Ambas)
                         <div class="mb-4">
                             <label class="form-label fw-semibold">Modalidad de la clase</label>
                             <div class="row g-2">
@@ -103,7 +103,7 @@
                             </div>
                         </div>
                     @else
-                        <input type="hidden" name="booking_modality" value="{{ $class->modality }}">
+                        <input type="hidden" name="booking_modality" value="{{ $class->modality->value }}">
                     @endif
 
                     {{-- Fecha y hora --}}
@@ -189,7 +189,7 @@
                 </div>
                 <div class="mb-3 d-flex justify-content-between small">
                     <span class="text-muted">Modalidad</span>
-                    <span class="badge bg-info bg-opacity-10 text-info">{{ ucfirst($class->modality) }}</span>
+                    <span class="badge bg-info bg-opacity-10 text-info">{{ $class->modality->label() }}</span>
                 </div>
 
                 <hr>
