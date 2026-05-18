@@ -65,7 +65,6 @@
                                 <option value="deporte"      {{ old('category') == 'deporte'      ? 'selected' : '' }}>Deporte</option>
                                 <option value="programacion" {{ old('category') == 'programacion' ? 'selected' : '' }}>Programación</option>
                                 <option value="negocios"     {{ old('category') == 'negocios'     ? 'selected' : '' }}>Negocios</option>
-                                <option value="otros"        {{ old('category') == 'otros'        ? 'selected' : '' }}>Otros</option>
                             </select>
                             @error('category')
                                 <div class="text-danger small mt-1">{{ $message }}</div>
@@ -78,7 +77,6 @@
                                 <option value="beginner"     {{ old('level') == 'beginner'     ? 'selected' : '' }}>Principiante</option>
                                 <option value="intermediate" {{ old('level') == 'intermediate' ? 'selected' : '' }}>Intermedio</option>
                                 <option value="advanced"     {{ old('level') == 'advanced'     ? 'selected' : '' }}>Avanzado</option>
-                                <option value="all"          {{ old('level') == 'all'          ? 'selected' : '' }}>Todos los niveles</option>
                             </select>
                             @error('level')
                                 <div class="text-danger small mt-1">{{ $message }}</div>

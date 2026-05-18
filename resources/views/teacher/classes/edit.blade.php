@@ -66,7 +66,6 @@
                                 <option value="deporte"      {{ old('category', $class->category) == 'deporte'      ? 'selected' : '' }}>Deporte</option>
                                 <option value="programacion" {{ old('category', $class->category) == 'programacion' ? 'selected' : '' }}>Programación</option>
                                 <option value="negocios"     {{ old('category', $class->category) == 'negocios'     ? 'selected' : '' }}>Negocios</option>
-                                <option value="otros"        {{ old('category', $class->category) == 'otros'        ? 'selected' : '' }}>Otros</option>
                             </select>
                             @error('category')
                                 <div class="text-danger small mt-1">{{ $message }}</div>
@@ -79,7 +78,6 @@
                                 <option value="beginner"     {{ old('level', $class->level) == 'beginner'     ? 'selected' : '' }}>Principiante</option>
                                 <option value="intermediate" {{ old('level', $class->level) == 'intermediate' ? 'selected' : '' }}>Intermedio</option>
                                 <option value="advanced"     {{ old('level', $class->level) == 'advanced'     ? 'selected' : '' }}>Avanzado</option>
-                                <option value="all"          {{ old('level', $class->level) == 'all'          ? 'selected' : '' }}>Todos los niveles</option>
                             </select>
                             @error('level')
                                 <div class="text-danger small mt-1">{{ $message }}</div>

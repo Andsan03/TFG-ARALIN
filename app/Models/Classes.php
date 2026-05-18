@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\ClassModality;
+use App\Casts\ClassModalityCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,7 +25,7 @@ class Classes extends Model
     protected function casts(): array
     {
         return [
-            'modality' => ClassModality::class,
+            'modality' => ClassModalityCast::class,
             'price_per_hour' => 'decimal:2',
             'is_active' => 'boolean',
         ];

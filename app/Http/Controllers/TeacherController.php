@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\ClassLevel;
 use App\Enums\ClassModality;
 use App\Models\Booking;
 use App\Models\Classes;
@@ -96,10 +95,10 @@ class TeacherController extends Controller
         $validationRules = [
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:2000',
-            'category' => 'required|string|in:matematicas,ciencias,idiomas,arte,musica,deporte,programacion,negocios,otros',
+            'category' => 'required|string|in:matematicas,ciencias,idiomas,arte,musica,deporte,programacion,negocios',
             'modality' => ['required', Rule::enum(ClassModality::class)],
             'price_per_hour' => 'required|numeric|min:1|max:999',
-            'level' => ['required', Rule::enum(ClassLevel::class)],
+            'level' => ['required', 'in:beginner,intermediate,advanced'],
         ];
 
         $modality = ClassModality::tryFrom((string) $request->input('modality', ''));
@@ -151,8 +150,8 @@ class TeacherController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:2000',
-            'category' => 'required|string|in:matematicas,ciencias,idiomas,arte,musica,deporte,programacion,negocios,otros',
-            'level' => ['required', Rule::enum(ClassLevel::class)],
+            'category' => 'required|string|in:matematicas,ciencias,idiomas,arte,musica,deporte,programacion,negocios',
+            'level' => ['required', 'in:beginner,intermediate,advanced'],
             'price_per_hour' => 'required|numeric|min:1|max:999',
             'modality' => ['required', Rule::enum(ClassModality::class)],
             'location' => [

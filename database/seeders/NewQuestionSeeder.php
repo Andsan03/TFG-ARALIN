@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Question;
+use Illuminate\Database\Seeder;
 
 class NewQuestionSeeder extends Seeder
 {
@@ -19,7 +19,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'O(1)',
                 'correct_option' => 'b',
                 'subject' => 'programación',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué patrón de diseño se utiliza para crear objetos sin especificar sus clases concretas?',
@@ -29,7 +29,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Decorator',
                 'correct_option' => 'b',
                 'subject' => 'programación',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál de las siguientes NO es una característica de la programación orientada a objetos?',
@@ -39,7 +39,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Compilación',
                 'correct_option' => 'd',
                 'subject' => 'programación',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué estructura de datos sigue el principio LIFO (Last In, First Out)?',
@@ -49,7 +49,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Árbol binario',
                 'correct_option' => 'b',
                 'subject' => 'programación',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el propósito principal de Git en el desarrollo de software?',
@@ -59,7 +59,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Gestionar dependencias',
                 'correct_option' => 'b',
                 'subject' => 'programación',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué significa el acrónimo API en desarrollo web?',
@@ -69,7 +69,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Application Process Interface',
                 'correct_option' => 'a',
                 'subject' => 'programación',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál de los siguientes lenguajes es tipado dinámicamente?',
@@ -79,7 +79,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'TypeScript',
                 'correct_option' => 'c',
                 'subject' => 'programación',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué método HTTP se utiliza típicamente para actualizar datos existentes en un servidor?',
@@ -89,7 +89,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'DELETE',
                 'correct_option' => 'c',
                 'subject' => 'programación',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es la principal ventaja de usar microservicios?',
@@ -99,7 +99,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Desarrollo más rápido',
                 'correct_option' => 'b',
                 'subject' => 'programación',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué concepto se refiere a que una clase hija puede redefinir métodos de su clase padre?',
@@ -109,7 +109,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Abstracción',
                 'correct_option' => 'c',
                 'subject' => 'programación',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el propósito principal de un índice en una base de datos?',
@@ -119,7 +119,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Simplificar el diseño',
                 'correct_option' => 'b',
                 'subject' => 'programación',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué patrón arquitectónico separa la lógica de negocio de la interfaz de usuario?',
@@ -129,7 +129,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Factory',
                 'correct_option' => 'a',
                 'subject' => 'programación',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es la principal diferencia entre SQL y NoSQL?',
@@ -139,7 +139,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'NoSQL solo para aplicaciones móviles',
                 'correct_option' => 'b',
                 'subject' => 'programación',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué significa "DRY" en programación?',
@@ -149,7 +149,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Debug Regular Yearly',
                 'correct_option' => 'a',
                 'subject' => 'programación',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el propósito de Docker en desarrollo de software?',
@@ -159,7 +159,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Gestionar bases de datos',
                 'correct_option' => 'b',
                 'subject' => 'programación',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué tipo de prueba verifica que diferentes componentes funcionen juntos correctamente?',
@@ -169,7 +169,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Regression test',
                 'correct_option' => 'b',
                 'subject' => 'programación',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es la principal ventaja de usar TypeScript sobre JavaScript?',
@@ -179,7 +179,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Mayor compatibilidad con navegadores',
                 'correct_option' => 'b',
                 'subject' => 'programación',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué concepto se refiere a ocultar los detalles internos de una clase?',
@@ -189,7 +189,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Abstracción',
                 'correct_option' => 'c',
                 'subject' => 'programación',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el propósito principal de un framework de testing como Jest?',
@@ -199,8 +199,8 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Gestionar bases de datos',
                 'correct_option' => 'b',
                 'subject' => 'programación',
-                'type' => 'multiple_choice'
-            ]
+                'type' => 'multiple_choice',
+            ],
         ];
 
         // Preguntas de Diseño (20 preguntas)
@@ -213,7 +213,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Espaciado mínimo',
                 'correct_option' => 'b',
                 'subject' => 'diseño',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué espacio de color se usa comúnmente en diseño digital para pantallas?',
@@ -223,7 +223,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Grayscale',
                 'correct_option' => 'b',
                 'subject' => 'diseño',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es la proporción áurea aproximada?',
@@ -233,7 +233,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => '1:2',
                 'correct_option' => 'c',
                 'subject' => 'diseño',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué principio de diseño se refiere a la cercanía de elementos relacionados?',
@@ -243,7 +243,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Repetición',
                 'correct_option' => 'b',
                 'subject' => 'diseño',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el propósito principal del "white space" en diseño?',
@@ -253,7 +253,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Reducir tamaño',
                 'correct_option' => 'b',
                 'subject' => 'diseño',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué formato de imagen es mejor para logotipos con transparencia?',
@@ -263,7 +263,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'BMP',
                 'correct_option' => 'b',
                 'subject' => 'diseño',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es la resolución estándar para diseño web "Retina"?',
@@ -273,7 +273,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => '144 DPI',
                 'correct_option' => 'c',
                 'subject' => 'diseño',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué principio de diseño crea armonía visual mediante elementos similares?',
@@ -283,7 +283,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Énfasis',
                 'correct_option' => 'b',
                 'subject' => 'diseño',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el sistema de tipografía más común en diseño web?',
@@ -293,7 +293,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Cursive',
                 'correct_option' => 'b',
                 'subject' => 'diseño',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué herramienta de diseño es principalmente para diseño vectorial?',
@@ -303,7 +303,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Premiere Pro',
                 'correct_option' => 'b',
                 'subject' => 'diseño',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el propósito de una "mood board" en diseño?',
@@ -313,7 +313,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Crear código',
                 'correct_option' => 'b',
                 'subject' => 'diseño',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué formato de imagen es mejor para fotografías en web?',
@@ -323,7 +323,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'GIF',
                 'correct_option' => 'c',
                 'subject' => 'diseño',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es la regla de los tercios en composición?',
@@ -333,7 +333,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Alinear tres elementos',
                 'correct_option' => 'a',
                 'subject' => 'diseño',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué significa "UI" en diseño de productos digitales?',
@@ -343,7 +343,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Unit Implementation',
                 'correct_option' => 'a',
                 'subject' => 'diseño',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el propósito principal del "prototipado"?',
@@ -353,7 +353,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Optimizar rendimiento',
                 'correct_option' => 'b',
                 'subject' => 'diseño',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué principio de diseño guía el ojo del usuario a través del contenido?',
@@ -363,7 +363,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Color',
                 'correct_option' => 'b',
                 'subject' => 'diseño',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el formato ideal para iconos escalables?',
@@ -373,7 +373,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'GIF',
                 'correct_option' => 'c',
                 'subject' => 'diseño',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué significa "UX" en diseño de productos?',
@@ -383,7 +383,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Unit Execution',
                 'correct_option' => 'a',
                 'subject' => 'diseño',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el propósito de un "style guide" en diseño?',
@@ -393,8 +393,8 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Acelerar desarrollo',
                 'correct_option' => 'b',
                 'subject' => 'diseño',
-                'type' => 'multiple_choice'
-            ]
+                'type' => 'multiple_choice',
+            ],
         ];
 
         // Preguntas de Idiomas (20 preguntas)
@@ -407,7 +407,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'voy',
                 'correct_option' => 'b',
                 'subject' => 'idiomas',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué artículo usarías para "agua" en español?',
@@ -417,7 +417,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Las',
                 'correct_option' => 'b',
                 'subject' => 'idiomas',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el plural de "luz"?',
@@ -427,7 +427,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Luceses',
                 'correct_option' => 'a',
                 'subject' => 'idiomas',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué significa la expresión "estar en las nubes"?',
@@ -437,7 +437,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Estar triste',
                 'correct_option' => 'b',
                 'subject' => 'idiomas',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el sinónimo de "pronto"?',
@@ -447,7 +447,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Lento',
                 'correct_option' => 'c',
                 'subject' => 'idiomas',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué tiempo verbal es "habrá cantado"?',
@@ -457,7 +457,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Condicional',
                 'correct_option' => 'c',
                 'subject' => 'idiomas',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el antónimo de "subir"?',
@@ -467,7 +467,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Correr',
                 'correct_option' => 'b',
                 'subject' => 'idiomas',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué significa "break a leg" en inglés?',
@@ -477,7 +477,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Correr rápido',
                 'correct_option' => 'c',
                 'subject' => 'idiomas',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es la forma correcta del subjuntivo: "Espero que ____ bien"?',
@@ -487,7 +487,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'estan',
                 'correct_option' => 'b',
                 'subject' => 'idiomas',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué significa "once upon a time"?',
@@ -497,7 +497,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Inmediatamente',
                 'correct_option' => 'c',
                 'subject' => 'idiomas',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el género de "la mesa"?',
@@ -507,7 +507,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Ambiguo',
                 'correct_option' => 'b',
                 'subject' => 'idiomas',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué significa "piece of cake" en inglés coloquial?',
@@ -517,7 +517,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Algo delicioso',
                 'correct_option' => 'b',
                 'subject' => 'idiomas',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el comparativo de "bueno"?',
@@ -527,7 +527,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Buenoer',
                 'correct_option' => 'c',
                 'subject' => 'idiomas',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué significa "raining cats and dogs"?',
@@ -537,7 +537,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Nublado',
                 'correct_option' => 'b',
                 'subject' => 'idiomas',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el superlativo de "grande"?',
@@ -547,7 +547,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Grandoso',
                 'correct_option' => 'c',
                 'subject' => 'idiomas',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué significa "hit the books"?',
@@ -557,7 +557,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Tirar libros',
                 'correct_option' => 'a',
                 'subject' => 'idiomas',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el tiempo verbal en "mañana estudiaré"?',
@@ -567,7 +567,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Condicional',
                 'correct_option' => 'c',
                 'subject' => 'idiomas',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué significa "under the weather"?',
@@ -577,7 +577,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Estar confundido',
                 'correct_option' => 'a',
                 'subject' => 'idiomas',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el sinónimo de "comenzar"?',
@@ -587,8 +587,8 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Continuar',
                 'correct_option' => 'b',
                 'subject' => 'idiomas',
-                'type' => 'multiple_choice'
-            ]
+                'type' => 'multiple_choice',
+            ],
         ];
 
         // Preguntas de Música (20 preguntas)
@@ -601,7 +601,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => '6',
                 'correct_option' => 'c',
                 'subject' => 'música',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué instrumento pertenece a la familia del viento madera?',
@@ -611,7 +611,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Tuba',
                 'correct_option' => 'b',
                 'subject' => 'música',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el tempo "moderato"?',
@@ -621,7 +621,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Rápido',
                 'correct_option' => 'c',
                 'subject' => 'música',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué significa "piano" en notación musical?',
@@ -631,7 +631,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Tocar lento',
                 'correct_option' => 'b',
                 'subject' => 'música',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el acorde mayor básico ( tríada)?',
@@ -641,7 +641,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Tónica - Cuarta - Quinta',
                 'correct_option' => 'b',
                 'subject' => 'música',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué instrumento es de percusión de afinación definida?',
@@ -651,7 +651,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Pandereta',
                 'correct_option' => 'c',
                 'subject' => 'música',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es la firma de tiempo 4/4?',
@@ -661,7 +661,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Dos blancas por compás',
                 'correct_option' => 'a',
                 'subject' => 'música',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué instrumento tiene cuerdas frotadas?',
@@ -671,7 +671,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Arpa',
                 'correct_option' => 'b',
                 'subject' => 'música',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué significa "staccato"?',
@@ -681,7 +681,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Notas suaves',
                 'correct_option' => 'b',
                 'subject' => 'música',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el instrumento principal en una orquesta sinfónica?',
@@ -691,7 +691,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Flauta',
                 'correct_option' => 'c',
                 'subject' => 'música',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué familia de instrumentos incluye el violonchelo?',
@@ -701,7 +701,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Percusión',
                 'correct_option' => 'c',
                 'subject' => 'música',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué significa "crescendo"?',
@@ -711,7 +711,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Hacerse más lento',
                 'correct_option' => 'b',
                 'subject' => 'música',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el intervalo entre Do y Sol?',
@@ -721,7 +721,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Sexta',
                 'correct_option' => 'c',
                 'subject' => 'música',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué instrumento es de teclado?',
@@ -731,7 +731,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Violín',
                 'correct_option' => 'c',
                 'subject' => 'música',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué significa "allegro" en tempo?',
@@ -741,7 +741,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Muy rápido',
                 'correct_option' => 'c',
                 'subject' => 'música',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es la escala mayor natural?',
@@ -751,7 +751,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Do-Re-Mi-Fa#-Sol-La-Si',
                 'correct_option' => 'a',
                 'subject' => 'música',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué instrumento pertenece a la familia del viento metal?',
@@ -761,7 +761,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Fagot',
                 'correct_option' => 'c',
                 'subject' => 'música',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué significa "pizzicato" en música de cuerda?',
@@ -771,8 +771,8 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Tocar suave',
                 'correct_option' => 'b',
                 'subject' => 'música',
-                'type' => 'multiple_choice'
-            ]
+                'type' => 'multiple_choice',
+            ],
         ];
 
         // Preguntas de Marketing (20 preguntas)
@@ -785,7 +785,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Site Effectiveness Overview',
                 'correct_option' => 'a',
                 'subject' => 'marketing',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el propósito principal del "call to action"?',
@@ -795,7 +795,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Decorar la página',
                 'correct_option' => 'c',
                 'subject' => 'marketing',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué es el "funnel" de marketing?',
@@ -805,7 +805,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Un presupuesto',
                 'correct_option' => 'b',
                 'subject' => 'marketing',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué significa "CTR" en marketing digital?',
@@ -815,7 +815,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Content Target Reach',
                 'correct_option' => 'a',
                 'subject' => 'marketing',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el "target audience"?',
@@ -825,7 +825,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Los empleados',
                 'correct_option' => 'b',
                 'subject' => 'marketing',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué es el "branding"?',
@@ -835,7 +835,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Reducir precios',
                 'correct_option' => 'a',
                 'subject' => 'marketing',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el propósito principal de "A/B testing"?',
@@ -845,7 +845,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Crear contenido',
                 'correct_option' => 'a',
                 'subject' => 'marketing',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué significa "ROI" en marketing?',
@@ -855,7 +855,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Revenue Optimization Index',
                 'correct_option' => 'a',
                 'subject' => 'marketing',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué es el "lead generation"?',
@@ -865,7 +865,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Crear productos',
                 'correct_option' => 'b',
                 'subject' => 'marketing',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el "engagement" en redes sociales?',
@@ -875,7 +875,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Número de publicaciones',
                 'correct_option' => 'b',
                 'subject' => 'marketing',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué significa "KPI" en marketing?',
@@ -885,7 +885,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Keeping Performance Index',
                 'correct_option' => 'a',
                 'subject' => 'marketing',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el "content marketing"?',
@@ -895,7 +895,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Eliminar contenido',
                 'correct_option' => 'a',
                 'subject' => 'marketing',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué es el "customer journey"?',
@@ -905,7 +905,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Una queja',
                 'correct_option' => 'a',
                 'subject' => 'marketing',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el propósito principal del "email marketing"?',
@@ -915,7 +915,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Diseñar logos',
                 'correct_option' => 'b',
                 'subject' => 'marketing',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué significa "CPC" en publicidad online?',
@@ -925,7 +925,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Customer Per Click',
                 'correct_option' => 'a',
                 'subject' => 'marketing',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué es el "market research"?',
@@ -935,7 +935,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Competir en el mercado',
                 'correct_option' => 'b',
                 'subject' => 'marketing',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Cuál es el "conversion rate"?',
@@ -945,7 +945,7 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Tiempo en el sitio',
                 'correct_option' => 'a',
                 'subject' => 'marketing',
-                'type' => 'multiple_choice'
+                'type' => 'multiple_choice',
             ],
             [
                 'question_text' => '¿Qué es el "influencer marketing"?',
@@ -955,13 +955,17 @@ class NewQuestionSeeder extends Seeder
                 'option_d' => 'Copiar a influencers',
                 'correct_option' => 'a',
                 'subject' => 'marketing',
-                'type' => 'multiple_choice'
-            ]
+                'type' => 'multiple_choice',
+            ],
         ];
 
-        // Insertar todas las preguntas
-        Question::insert(array_merge($programmingQuestions, $designQuestions, $languageQuestions, $marketingQuestions, $musicQuestions));
-        
+        $all = array_merge($programmingQuestions, $designQuestions, $languageQuestions, $marketingQuestions, $musicQuestions);
+        $all = array_map(fn (array $q) => array_intersect_key($q, array_flip([
+            'subject', 'question_text', 'option_a', 'option_b', 'option_c', 'option_d', 'correct_option',
+        ])), $all);
+
+        Question::insert($all);
+
         $this->command->info('Se han creado 100 preguntas (20 por cada categoría: programación, diseño, idiomas, música, marketing)');
     }
 }
